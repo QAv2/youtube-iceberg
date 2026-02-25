@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>022 2 Unit Quaternion — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>022 2 Unit Quaternion</h1>
+        <div class="meta">
+            <span>Channel: Machine Intelligence Group</span>
+            <span>Published: 2022-05-31</span>
+            <span>1,213 words</span>
+            <span>Source: auto_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/dKn_EhFRK5g"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>unit quaternions unit quaternions offer an elegant solution to gimbal lock quaternions are an extension of complex numbers they are often written as a plus bi plus cj plus d k where a b c d are real numbers scalars and i j k satisfy i square is equal to j square is equal to k square is equal to minus 1 hence i j and k are all equal to under root minus 1 which makes them complex numbers an alternate representation that is more suitable for rotations considers quadrants as 4d vectors that is q is equal to a b c d so they just skip writing i j k because everybody knows that they are equal to square root -1 and for compactness we can write this as q is equal to a v where a is a scalar and v is a vector in r3 when a is equal to zero we refer to the quadrant as a pure quaternion but when q is equal to one the magnitude of q is equal to 1 we refer to it as unit quaternion unit quaternion is of interest to us for animation because rotations can be represented with unit quaternions so what are the advantages of quaternions interpolation is easy between two quaternions it results in smoother animation and compared to matrices which take up three into three or four into four values quaternions take up less storage place because they only need 4 values so 3 into 3 is 9 where compared to 4. so it takes up less memory space quaternions can be easily converted to matrices for rendering and most importantly quaternions do not suffer from the gimbal log problem so this is the solution to the gimbal lock problem we use unit quaternions to represent 3z 3d rotations that is if you use q is equal to av to represent a rotation then we normalize q so that the magnitude of q is equal to one any 3d rotation about the origin can be described by defining a rotation axis w and assume assuming that w is a unit magnitude in 3d space and a rotation angle theta so any rotation can be defined by defining a new axis w and a rotation about that axis theta and the corresponding corresponding unit quaternion will look like this cos theta by 2 comma w which is a vector sine theta by 2 and hence it has four values three values coming from w and one values as the constant value is cos theta by 2. rotation about the x-axis with an angle alpha we can write the unit quadrant like this so here are these are some examples cos alpha by 2 sine alpha by 2 and then 0 0 that&#x27;s because it&#x27;s a rotation about the x axis the rotation about the y axis with an angle beta can be written in quaternion form like this cos beta by 2 and then there is a zero sine beta by 2 and there&#x27;s a 0 again similarly the rotation about the z axis with an angle gamma can be written like this because gamma by 2 0 0 and then sine gamma by 2. so notice that the first value is always cause of the angle divided by 2 and then depending upon where the rotation is we put a sine of that angle divided by 2 in that position you know if it is x we put it here y put it here is that we put it here but these are only for simple rotation that is about one axis only with complicated rotations we will require a little bit complicated quaternions so how do we take the inverse of a quaternion we know that the inverse of a rotation matrix r is given by r transpose so this is because rotation matrix is a specific form of a matrix if we take its transpose that will be the inverse of the matrix r for a quaternion q is equal to a v that represents a rotation r the inverse of this quatrainian will be represented with a minus v so you just have to take the negative of the second term the the vector term in the quaternion and that will become the inverse of the quaternion and hence the inverse of the matrix or the transpose of the matrix r therefore inverse rotation of a quaternion is also very easily represented the identity matrix in a quaternion form is represented represented like this this basically corresponds to no rotation or zero rotation angle how do you perform quaternion multiplication so multiplying two rotation matrices together is equivalent to multiplying two quaternions defined as follows so if q1 is one quaternion q2 is another quaternion given as s1 v1 s just stands for scalar value v is the vector value and q2 is equal to s2 v2 then the product of these two quaternions which is equal to the product of two matrices the corresponding matrices as well is represented with this equation so we multiply the scalar terms together and then subtract the dot product so this stands for dot product and the cross here is of course the vector cross product so this is the formula for deriving the product of two quaternions and similar to matrix multiplication quaternion multiplication is not commutative an easy example that we can verify for quaternion multiplication is presented here so let r1 be the rotation matrix about the x axis with angle alpha and r 2 be the rotation about the same axis with an angle beta so we have two simple rotation matrixes both matrices are rotating the object about the x-axis one is by angle alpha and the other one is by angle beta so we know that the resultant rotation r should be the product of these two angles with the rotation uh about x axis the corresponding unit quaternions to r1 and r2 are given by q1 and q2 so that&#x27;s from the previous slide that we just studied right so since they are both rotations about the x axis we have a sine beta by 2 and sine alpha by 2 as the second term in the quaternion representation and using the quaternion multiplication formula from the previous slide also given here we get these values right so you can solve them on a piece of paper and verify that the product of these two quadrants will be equal to these this these values and now we have just simply presented the vector in a column form rather than a row form now using the rules cos a plus b is equal to cos a cos b minus sign a sine b and sine a plus b is equal to sine a cos b plus cos a sine b we can simplify what we got in the previous slide to these values and the last two values were 0 anyway now if you look closely this is exactly the quaternion for a rotation about the x-axis by an angle alpha plus beta and intuitively this should have been the answer so hence we have verified the formula for quaternion multiplication</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotation Dynamics of a Rigid Body with Vector Calculus and Geometric Algebra — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Rotation Dynamics of a Rigid Body with Vector Calculus and Geometric Algebra</h1>
+        <div class="meta">
+            <span>Channel: Tony the Taiwanese Turtle</span>
+            <span>Published: 2021-09-30</span>
+            <span>2,187 words</span>
+            <span>Source: manual_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/BN4coAyF5PE"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>rotation dynamics of a rigid body with  vector calculus and geometric algebra I was told that geometric algebra is  the more natural way to describe physics so I wonder whether that was true also  for rotational dynamics of a rigid body since I haven&#x27;t found a concrete derivation  on youtube yet I decided to do it on my own in the first part of this video</p>
+<p>we will first review intermediate dynamics  we will go through the derivation of time  derivative in a rotating moving frame  and then we will use the  results from the derivation  to further derive the relations between  angular momentum rotational inertia and torque  in the second part we will go through  the same topics as in the first  but with geometric algebra and finally in the last part of the video</p>
+<p>I will summarize and compare the two results so first we will recap some of the  results from intermediate dynamics  using the more common vector calculus  suppose that we have a set of rotating orthonormal  bases b and another set of fixed bases e in intermediate dynamics we are told that they  are related by a rotational tensor r like this the rotation tensor r is symmetric and  its bases are orthonormal to each other   this means that the transpose </p>
+<p>of r is also the inverse of r now if we take the time  derivative of the rotating basis b   we should get this expression db dt equals to r dot e since we can also write the basis e  as the inverse of r multiplied by b  we can also write the time derivative as db dt equals to r dot r transpose b we will call this r dot r transpose </p>
+<p>tensor the angular velocity tensor omega now recall since r is both  symmetric and also normal  we had r r transpose equals the identity matrix if we take the time derivative  of this equation we will get this r dot r transpose plus r r  dot transpose equals to zero  now the first term is just the  transpose of the second term  what this means is that the angular </p>
+<p>velocity tensor omega is anti-symmetric   so we can actually represent the tensor omega with the product between the  three-dimensional level civita tensor and another vector which we will call it angular  velocity vector small omega to show that this formulation of omega  above really yields an anti-symmetric tensor recall that the levi civita  tensor has the following property  epsilon ijk equals to minus epsilon jik so if we swap the indices of omega</p>
+<p>we get a minus sign now since we can express the  derivative of a basis vector b as  b i dot equals to omega i j b j we can also express it in terms of the   three three-dimensional levi  civita tensor and small omega b i dot equals to minus epsilon i j k b j omega  k which equals to epsilon i j k omega j b k and this is just the outer  product between small omega and b  so in the compact form we can </p>
+<p>write db dt equals to omega cross b now suppose we express the vector  v with the rotating basis vector b  so v equals to v i b i taking the time derivative of it we will get dv dt equals to vi dot bi plus vi bi dot for the second term in the derivative of v we know that db dt equals to omega cross b  so we can also write the time derivative of v as dv dt equals to vi dot vi plus vi omega cross bi we can place vi just before of </p>
+<p>bi so that the equations becomes  dv dt equals to v i b i plus omega cross v i b i so the first term is the time   derivative of the vector v with respect to the moving frame which we will   express as delta over delta t in this video and the second term is just small omega cross v now that we are able to express the time  derivative of a vector in the moving frame  we can discuss the rotation </p>
+<p>dynamics of a rigid body with it consider a rotating rigid body the angular momentum vector h of this   body with respect to its center of mass is h equals to the integral r cross r dot  where the vector r is the position  vector with respect to the center of mass because this is a rigid body the positions of parts of the body are fixed  and the time derivative of r with respect </p>
+<p>to the rotating frame will be zero so the time derivative of r will  only contain small omega cross r  therefore h can be written as h equals  to the integral r cross omega cross r let&#x27;s dig into what this cross product actually is using the levi civita tensors we can write the cross product as epsilon i j k epsilon m n  l r j omega n r l delta f k now the product of two levi civita </p>
+<p>tensor is equal to the following so the cross product epsilon ijk  epsilon mnl r j omega n r l delta m k   will only have two non-zero terms which leads to omega i r j  r j minus r i r j omega j  or in compact form it is r  dot r minus r tensor r omega therefore if we define the  rotational inertia tensor as  i equals to the integral of r </p>
+<p>cross r identity minus r tensor r then we will get a nice equation  for the angular momentum vector h  h equals to i omega now let us consider a torque  exerted onto a rigid body  with respect to the center of mass of the body that would be t equals to integral r cross a here the vector a is the acceleration  of parts of the rigid body  with respect to the center of mass now then the vector for the acceleration  is just the time derivative of vector v which can also be written as d dt integral r cross omega cross r since the first term of this derivative </p>
+<p>dr dt cross small omega cross r is zero so with vector calculus we have  the following rotation dynamics  for a rigid body because the position vector r does  not change on the rotating frame  the rotational inertia tensor remains constant so the equation can be simplified to t equals to d h dt equals to  i small omega dot plus small omega cross h let us now derive the same results  from the previous part of the video  using geometric algebra in geometric algebra the rotating basis b</p>
+<p>and the fixed basis e  has the following relation b equals to r minus theta over 2 e r theta over 2  where r theta is a geometric  object called the rotor taking the time derivative of the equation we will have db dt equals to r minus theta  over 2 dot e r theta over two  plus r minus theta over two e r theta over two dot now since we can also write e as e equals  to r theta over two b r minus theta over two replacing the e in the time derivative of b </p>
+<p>we can also express b dot as db dt equals to r minus theta over two dot r theta over two b plus b r minus theta over two r theta over two dot this results from the property r minus  theta over two r theta over 2 equals to 1. if we take the time derivative  of this equation we get r minus theta over 2 dot r theta over 2 plus r </p>
+<p>minus theta over 2 r theta over 2 dot equals to 0. so the time derivative of v can be written as db dt equals to b r minus  theta over 2 r theta over 2 dot  minus r minus theta over  two r theta over two dot b now the anti-symmetric part of the geometric  product between a vector and a bi-vector  is the left contraction </p>
+<p>between a vector and a bivector so we can write db dt equals to b left contract two r minus theta over two r theta over two dot if we define the angular velocity bivector omega theta as omega theta equals to 2 r minus  theta over 2 r theta over 2 dot we will arrive at the nice equation dp dt equals to b left contract omega theta in geometric algebra the angular momentum of a rigid body with respect to its center of mass is a bivector h equals to integral r wedge r dot since parts of the rigid body are only </p>
+<p>rotating with respect to the center of mass we can write the angular momentum as  h equals to integral r wedge  r left contract omega theta now since our left constraint omega theta must be perpendicular to r we can also write the equation as and we can tidy the formula up  a little so that h equals to one half integral r dot r omega  theta minus r omega theta r now if we decompose the vector r into a part </p>
+<p>which is parallel to omega theta r parallel and the part which is perpendicular  to the omega theta r perpendicular then we can write h equals to  integral r r parallel omega theta so if we define the rotational  inertia multi-vector as  i equals to integral r parallel dot r parallel minus r parallel wedge r perpendicular we can express the angular momentum bivector as</p>
+<p>h equals to i omega theta however unlike the rotational inertia  tensor we derive with vector calculus the rotational inertia multi-vector  we derive is a function of omega theta therefore it will not be as useful  as the rotational inertia tensor  nevertheless we can still find  a relative simple equation  for the rotational dynamics of a </p>
+<p>rigid body with geometric algebra in geometric algebra torque is written as t equals to integral r wedge a as in the vector calculus case  it is very easy to show that t equals to d h dt so what is the time derivative of h let us recall what h is it is h equals to one half integral r dot r omega  theta minus r omega theta r since the position of parts of the </p>
+<p>rigid body is fixed on the moving frame  r is constant so the time derivative r dot r omega theta is just r dot r omega theta dot meanwhile for the second term  we use the product rule to get r dot omega theta r plus r omega  theta dot r plus r omega theta r dot which can be expressed as this very long equation we can cancel some of the terms out from the equation to get we can also add and subtract</p>
+<p>r dot r omega theta omega theta   inside the brackets to get so the time derivative of h is this long equation which we can tidy into dh dt equals to delta h delta t plus one half h omega theta minus omega theta h where delta h delta t is just integral  r r left contract omega theta dot also the second part of the equation  is the anti-symmetric component  of the geometric product  between h and omega theta which must be a bi vector so we can actually write the equation as</p>
+<p>dh dt equals to delta h delta t  plus grade two component of h omega theta when comparing the derivation of  rotating dynamics of a rigid body  with vector calculus and with geometric algebra there are three main points I found number one both ways result in very neat equations  in vector calculus we have dh dt equals   to delta h delta t plus omega cross h where in geometric algebra we have dh dt   equals to delta h delta t plus the  grade two component of h omega theta number two using rotational inertia in </p>
+<p>vector calculus makes more sense in vector calculus we can derive  a rotational inertia tensor  which is independent of  the angular velocity vector this is not the case in geometric algebra the rotational inertia multi vector is a  function of the angular velocity bi-vector so it is more straightforward to carry  out the calculations in vector calculus although in both ways it all breaks </p>
+<p>down to a system of linear ordinary   differential equations for the delta delta t term number three geometric algebra can describe  rotation in higher dimensions the real advantage of expressing the  rotation dynamics in geometric algebra  is that it can be readily applied to  rotations in dimensions higher than 3 since unlike the cross product products using geometric algebra can  also be used in higher dimensions of course this extension has almost no </p>
+<p>practical use in the fields of engineering but it might be useful in  theoretical physics and mathematics</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

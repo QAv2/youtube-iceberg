@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quaternions and 3d rotation, explained interactively — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Quaternions and 3d rotation, explained interactively</h1>
+        <div class="meta">
+            <span>Channel: 3Blue1Brown</span>
+            <span>Published: 2018-10-26</span>
+            <span>1,121 words</span>
+            <span>Source: manual_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/zjMuIxRvygQ"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>In a moment, I&#x27;ll point you to a separate website hosting  a short sequence of what we&#x27;re calling explorable videos. It was done in collaboration with Ben Eater, who some of you may  know as that guy who runs the excellent computer engineering channel. And if you don&#x27;t know who he is, viewers of this channel  would certainly enjoy the content of his, so do check it out. This collaboration was something a little different though, for both of us,  and all of the web development that made these explorable videos possible is completely  thanks to Ben. I don&#x27;t want to say too much about it here, it&#x27;s really something you have to experience  for yourself, certainly one of the coolest projects I&#x27;ve had the pleasure of working on.</p>
+<p>Before that though, if you can contain your excitement,  I want to use this video as a chance to tee things up with a little bit of  surrounding context. So to set the stage, last video I described quaternions,  a certain 4-dimensional number system that the 19th century versions of  Wolverine and the old man from Home Alone called evil for how convoluted  it seemed at the time. And perhaps you too are wondering why on earth anyone  would bother with such an alien-seeming number system. One of the big reasons, especially for programmers,  is that they give a really nice way for describing 3D orientation,  which is not susceptible to the bugs and edge cases of other methods. I mean they&#x27;re interesting mathematically for a lot of reasons,  but this application for computer graphics and robotics and virtual reality  and anything involving 3D orientation is probably the biggest use case for quaternions.</p>
+<p>To take one example, a friend of mine who used to work at Apple, Andy Matuszczak,  delighted in telling me about shipping code to hundreds of millions of devices  that uses quaternions to track the phone&#x27;s model for how it&#x27;s oriented in space. That&#x27;s right, your phone almost certainly has software  running somewhere inside of it that relies on quaternions. The thing is, there are other ways to think about computing rotations,  many of which are way simpler to think about than quaternions. For example, any of you familiar with linear algebra will know  that 3x3 matrices can really nicely describe 3D transformations. And a common way that many programmers think about constructing a rotation matrix for  a desired orientation is to imagine rotating an object around three easy-to-think-about  axes, where the relevant angles for these rotations are commonly called Euler angles.</p>
+<p>And this mostly works, but one big problem is that it&#x27;s  vulnerable to something called gimbal lock, where when two of  your axes of rotation get lined up, you lose a degree of freedom. And it can also cause difficulties and ambiguities when  trying to interpolate between two separate orientations. If you&#x27;re curious for more of the details, there are many  great sources online for learning about Euler angles and gimbal lock,  and I&#x27;ve left links in the description to a few of them. Not only do quaternions avoid issues like gimbal lock,  they give a really seamless way to interpolate between two three-dimensional  orientations, one which lacks the ambiguities of Euler angles,  and which avoids the issues of numerical precision and normalization that arise in  trying to interpolate between two rotation matrices. To warm up to the idea of how multiplication in some higher-dimensional  number system might be used to compute rotations,  take a moment to remember how it is that complex numbers give a slick method  for computing 2D rotations.</p>
+<p>Specifically, let&#x27;s say you have some point in two-dimensional space,  like 4, 1, and you want to know the new coordinates you&#x27;d get  if you rotate this point 30 degrees around the origin. Complex numbers give a sort of snazzy way to do this. You take the complex number that&#x27;s 30 degrees off the horizontal with magnitude 1,  cos 30 degrees plus sin 30 degrees times i, and then you just multiply  this by your point, represented as a complex number. The only rule you need to know to carry out this computation is that i2 equals negative 1. Then in what might feel like a bit of black magic to those first learning it,  carrying out this product from that one simple rule gives the coordinates of a new point,  the point rotated 30 degrees from the original.</p>
+<p>Using quaternions to describe 3D rotations is similar,  though the look and feel is slightly different. Let&#x27;s say you want to rotate some angle about some axis. You first define that axis with a unit vector, which we&#x27;ll write as having i, j,  and k components, normalized so that the sum of the squares of those components is 1. Similar to the case of complex numbers, you use the angle to construct  a quaternion by taking cosine of that angle as the real part,  plus sin of that angle times an imaginary part,  except this time the imaginary part has three components,  the coordinates of our axis of rotation. Well, actually you take half of the angle, which might feel totally arbitrary,  but hopefully that makes sense by the end of this whole experience.</p>
+<p>Let&#x27;s say you have some 3D point, which we&#x27;ll write with i, j,  and k components, and you want to know the coordinates you&#x27;d get when  you rotate this point by your specified angle around your specified axis. What you do is not just a single quaternion product, but a sort of quaternion sandwich,  where you multiply by q from the left and the inverse of q from the right. If you know the rules for how i, j, and k multiply amongst themselves,  you can carry out these two products by expanding everything out,  or more realistically by having a computer do it for you. And in what might feel like a bit of black magic,  this big computation will return for you the rotated version of the point. Our goal is to break this down and visualize what&#x27;s  happening with each of these two products.</p>
+<p>I&#x27;ll review the method for thinking about quaternion multiplication described last video,  and explain why half the angle is used, and why you would  multiply from the right by the inverse. On the screen now and at the top of the description you&#x27;ll find a link to  eater.net slash quaternions, which is where Ben set up the explorable video tutorial,  where I explain what&#x27;s going on with this rotation computation. It&#x27;s just really cool. Eater did something awesome here. So at the very least just take a couple minutes to go look at it,  but I&#x27;d love it if you went through the full experience.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

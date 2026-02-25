@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity and acceleration in cylindrical coordinates using geometric algebra — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Velocity and acceleration in cylindrical coordinates using geometric algebra</h1>
+        <div class="meta">
+            <span>Channel: Peeter Joot&#x27;s math and physics play</span>
+            <span>Published: 2018-01-30</span>
+            <span>1,871 words</span>
+            <span>Source: auto_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/GjaZuly8C8w"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>Okay. So this is a talk uh about cylindrical coordinates, velocity and acceleration. Uh I&#x27;m going to use in in a cylindrical representation we have an angle and a length. So the length of a vector uh given by r theta. So we can write that the a position vector r is the length of that vector times a unit vector in the direction of that vector.</p>
+<p>This is our starting point. If we&#x27;re to look at the velocity of a vector in a cylindrical representation, we just have to take derivatives. So we can do that dt drdt is by chain rule drdt r hat plus r dr r hat dt or for short we can say r prime r hat plus r hat prime. We take second derivatives and that will be r prime r hat plus r r hat prime again. So we have rprime r hat plus rp prime r hat prime plus taking derivatives here we have rp prime r hat prime again plus r r hat double prime.</p>
+<p>So we got two of these guys. Now you want to give a specific meaning to the vector unit vector derivatives. So let&#x27;s figure out what those are. So in geometric algebra we can write the unit uh unit radial vector as e1 * exponent of e1 e2 theta. So that is E1 cos theta and E2 sin theta.</p>
+<p>So if you expand this out, you have E1 * cos theta + E1 E2 sin theta E1 cos theta plus E1 2 E2 sin theta but E1^2 = 1. So we have E1 cos theta plus E2 sin theta which is what I claimed here. So we have a fairly simple representation for unit radial vector in cylindrical coordinates. Slide the board up [clears throat] now. This almost has a look of complex variables.</p>
+<p>So I&#x27;m going to make it look like complex variables if we write I equals E1 * E2 or sometimes as E12 for short. So if we do that we now have R hat equals E1 * E I theta. The caveat here is that e to the i theta and e1 don&#x27;t commute. In particular, this equals e to the minus i theta e1. That holds for any any vector.</p>
+<p>So any vector in the plane of e1 e2. So if we say that a is in the span of e1 e2 then a e i theta equals e minus i theta a. That&#x27;s easy enough to show but it&#x27;s an important difference compared to complex numbers because we have to keep the order uh the order has to be uh kept track of. we don&#x27;t have the uh commuting property. So with having defined rh now we can easily take the derivative rhat prime.</p>
+<p>So that is E1 I E I theta. Writing it out in full E1 * E1 * E2 E I theta E1 E1 is 1. So we&#x27;re left with E2 E to the I theta. So that is our hat prime. Sorry, I missed d theta dt.</p>
+<p>So now this guy is our theta cap vector. So we have r hat and theta hat theta hat is z2 e to the i theta and we should expect r hat and theta hat to be perpendicular and we can do a quick check of that. So geometric drag algebra we can if we have two vectors A and B we can compute their dotproduct by selecting the scalar grade of the vector product of A and B. That turns out to be a really easy way to compute a number of different dot products. So we let&#x27;s use that to compute the dotproduct of r hat and theta hat.</p>
+<p>So r hat was e1 e to the i theta and theta hat is e2 e to the i theta. The scalar grade of these two is their dotproduct. So we can switch the order of these two introducing a conjugation in the sign of the complex exponential. So that is e to the minus actually I&#x27;m going to do it the other way around. Let&#x27;s switch the order of these two.</p>
+<p>So let&#x27;s write this as E1 E I theta E minus I theta E2. Now these cancel out. We&#x27;re left with what is the scalar component of the product E1 E2. Well E1 E2 is a B vector has no scalar product. No scalar component.</p>
+<p>So that&#x27;s zero. R hat do theta hat is zero just as we&#x27;d expect. [snorts] If we wanted to write out theta hat specifically we can do that e2 time cos theta + e1 e2 sin theta That is e2 cos theta plus e 2 * e1 * e2 switch the order of this and conjugate. And so that is e2 * minus e2 e1 sin theta. E2 * e2 is 1.</p>
+<p>So we&#x27;re left with E2 cos theta minus E1 sin theta. Let&#x27;s go back to the velocity acceleration. So we have we have r hat uh sorry so we had rp prime the velocity was r prime r hat plus r r hat prime. And we&#x27;ve just figured out that r hat prime is theta hat. So we now have r prime r hat plus r theta hat uh r prime was theta hat d theta dt or omega theta hat.</p>
+<p>So r omega theta hat and this here if you have circular uh velocity where r hat prime equals zero then you have v = r omega theta hat. And you&#x27;ll often see this in physics textbooks written in scalar form saying v equals r omega in for the acceler acceleration actually let&#x27;s before we go on to acceleration let&#x27;s look at a different way of of looking at the components of the velocity. So the components of the velocity we can write the velocity as velocity * 1 that&#x27;s equal to 1. So that is velocity the product of velocity times rad the the radial vector all times radial vector. Now we can write v dot rh plus v wedge rh.</p>
+<p>So now we have correspondence between the projective description of the velocity and the derivatives. So that is beta r hat dr r dt and the wedge r hat is r d theta dt theta hat r hat. Now if you multiply this all out on the right by R hat the R hats cancel. So you would have V wedge R hat R hat and that is the correspondence. Now this is also equal to theta hat wedge r hat since theta hat r hat equals z.</p>
+<p>So we have P r hat= drdt and p wedge r hat= r d theta dt theta hat wedge r hat. So there are geometrically these are related to the projection and the rejection with respect to r hat. [clears throat] And we see that uh the radial component of the velocity is just drdt. But then the radial bi vector is in the plane of theta hat and r hat and has the magnitude of r d theta dt. just two different ways of looking at the same thing that it&#x27;s a we have a specific example of a something physical the as a mutal component of the velocity and how that relates to a bi vector.</p>
+<p>Let&#x27;s now look at the acceleration. So for r hat double-prime the acceleration we have we had uh rprime r hat plus 2 rp prime r hat prime plus r hatp prime and we can write that out rp prime r hat plus to our prime omega theta hat plus r omega theta hat prime. So we need second derivative theta hat to start with or first derivative theta hat and that is e2 e to the i theta prime which is e2 e1 e2 e i theta d theta dt. This time not forgetting my d theta dt and that is minus e1 omega e to the i theta or minus omega rhat. So the acceleration has a inward radial component, the centrifugal force if you&#x27;d like to call it that.</p>
+<p>And it&#x27;s directed with magnitude omega. Let&#x27;s plug everything back in. So, I&#x27;m going to slide the screen up there. Sorry, I had a popup that probably didn&#x27;t show at your end. That was annoying.</p>
+<p>Okay. So we have the acceleration is rprime r hat + 2 rp prime omega theta hat plus our omega prime theta hat plus our omega theta hat prime which is minus r hat and we can group terms. So that is r hat times rp prime minus r omega^ 2 plus theta hat* 2 r prime omega plus r omega prime. Now this term is often rewritten as r 2 omega prime with 1 / r. So we have 2 r^ 2 / r which is 2 r prime omega plus the r omega prime / r² omega prime / r which is r omega prime.</p>
+<p>So we can slide up and have radial component of the acceleration and plus a theta hat component. So there is our acceleration. Let&#x27;s also look at the acceleration in terms of its projections with respect to the radial unit vector. So if we say a acceleration equals a * r * r hat. This says this is using the fact that r hat* r hat equals 1.</p>
+<p>So that is a dot r hat plus a wedge rh. So now we can say all right the radial component of the acceleration is rp prime minus r omega squ and the y vector describing as a mutal component of the acceleration is. So here are the projection and the rejection breakdowns of the acceleration. And uh so you could you could write these in terms of the cross productd if you like because you have let me slide this up. The last uh formula could be written in terms of cross productds because we can say u a cross b i a cross b this a wedge b and we would end up with an i on either side.</p>
+<p>Uh if we plug that into both of these wedge products of a wedge r and the theta wedge r. So that allows us to write a cross r= 1 / r theta cross r hat. Now in order for this to be meaningful we now have to work in R3. Whereas before that this works in R2 or it works in Rn. We may or may not ever care about uh acceleration velocity in any in any spaces other than R2 and three.</p>
+<p>But if we use the wedge product uh representation of the uh acceleration um call it an acceleration by vector angular acceleration probably then we have we can the wedge product is a universal representation for the same concept without introducing a third dimension that may not apply to the problem. And in in an RN like R4 for example, there&#x27;s no uh well- definfined uh unit normal to any given plane. So uh describing something in terms of the cross productd just doesn&#x27;t work. Anyways, that is all of what I wanted to present in this talk. Uh thank you for listening.</p>
+<p>Bye-bye.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

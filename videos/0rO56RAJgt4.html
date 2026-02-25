@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is there any connection between quaternions and vector multiplication? — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Is there any connection between quaternions and vector multiplication?</h1>
+        <div class="meta">
+            <span>Channel: Logically</span>
+            <span>Published: 2021-06-07</span>
+            <span>889 words</span>
+            <span>Source: auto_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/0rO56RAJgt4"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>[Music] so if you&#x27;re anything like me you probably have always favored complex numbers over vectors the multiplication makes a lot more sense and they&#x27;re just that numbers but as i learn more and more about vectors they do actually explain way more phenomena in our universe than complex numbers can take the example of physics the formula for work is work is equal to force dotted with our displacement the dot here represents the dot product which is a type of vector multiplication or take the example of our universe well it&#x27;s 3d and complex numbers sadly they&#x27;re 2d and because of this many times when describing our 3d universe complex numbers just don&#x27;t cut it but even after all that i would soon embrace something such as the quaternions rather than vectors why quaternions you ask well because quaternions actually have a deep connection to both of the vector products and they&#x27;re four dimensional one more dimension than we&#x27;ve been asking for what is that connection you may ask well stay tuned to find out or check out the time stamp in the description if i leave one which i probably won&#x27;t so you&#x27;re gonna have to watch the entire video through said anyway back to the math so let&#x27;s go now if you don&#x27;t already know what quaternions are let me give a very brief overview quaternions are just the extension to the complex numbers introducing four more non-principal square roots of negative one j negative j k and negative k and all of the complex numbers are related by this equation i times j times k equals negative one and their multiplication is non-commutative meaning something like a times b is not always equal to b times a they even have their own multiplication table but this table is kinda long so the way i remember how to multiply quaternions together is first you draw a circle then you write down arrows moving clockwise on the circle then write down the numbers i j and k then when you multiply two numbers together move in the direction of the order which you multiplied them if you move in the opposite direction of an arrow then the result will be negative so from this we get the results like i times j equals k and i times k equals negative j but anyway enough about what these quaternions are now i will show you the connection between these quaternions and vector multiplication to start let&#x27;s see what happens when you multiply two quaternions together that have no real part these can be of pretty much any form for example i plus j plus k times negative two i plus four j minus three k or any other real numbers we want to use as the coefficient we&#x27;ll keep it pretty general for the computation but just remember that these coefficients can be ending the real number and so now the two complex numbers we will be multiplying together are r1 and r2 where r1 is equal to ai plus bj plus ck and r2 is equal to xi plus yj plus zk now this is going to be a lot of quaternion algebra which can be very tedious at times and done that was a lot but we can start to see the vector multiplication hidden inside there are three terms here i want to focus on right now the negative a x the negative b y and the negative c z this should look very familiar to anyone who has done a dot product before is exactly the negative of the dot product of r1 and r2 if r1 and r2 were vectors now what about the other terms they are exactly the cross product of r1 and r2 respectively and so it turns out that the product of r1 and r2 is equal to the cross product of r1 and r2 minus the dot product of r1 and r2 cool right this result can be used to prove that any unit quaternion with no real part is another non-principal square root of negative one which written down looks like for any quaternion of the form a i plus b j plus c k is equal to say q and if a squared plus b squared plus c squared is equal to one then q squared is equal to negative one or q is another square root of negative one so using the fact we just arrived we can get that q squared is equal to q cross q minus q dot q now the cross product of any vector with itself is always zero and so we get that q squared is equal to negative q dot q and this q dot q can be expanded to a squared plus b squared plus c squared now as we said if this is a unit quaternion this is equal to one then q squared is equal to negative one much easier than doing all the tds quaternion algebra if anyone knows out there if there is any underlying reason for this rather than just being a coincidence please feel free to comment why but anyway i hope you found this at least mildly exciting thanks for watching and please subscribe if you enjoyed this content</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algo trading research with Google’s Antigravity and Gemini 3 — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Algo trading research with Google’s Antigravity and Gemini 3</h1>
+        <div class="meta">
+            <span>Channel: Algo-trading with Saleh</span>
+            <span>Published: 2025-11-20</span>
+            <span>2,090 words</span>
+            <span>Source: auto_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/alternative-propulsion-systems.html" class="tag-pill">Alternative Propulsion Systems</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/ypFG006G4WQ"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>Not only Google just released a Gemini tree model, they also released an agentic IDE. And even though there&#x27;s no way I&#x27;m going to get used to that name, I&#x27;m actually super excited about this thing because it&#x27;s not just for coding, it can also control the browser for you. And yes, at this point cursor does that too, but this one actually does it better. The other thing is that if you want to use so many tokens in your cursor ID, you&#x27;re going to have to pay up to $200 per month. But this one is completely free, at least for [music] the time being.</p>
+<p>However, in this video, I want to show you how to set it up specifically for algo trading so that it can do research for us to write strategies to modify them to even run them and look at the results and maybe try out different combinations of indicators or things like that and find us the best combination. So, I couldn&#x27;t be more excited about it. So, let&#x27;s get right into it. So, once you install anti-gravity, you&#x27;re going to get this interface. Now, it took me a while to import my settings from cursor.</p>
+<p>For some reason, my shortcuts weren&#x27;t working, at least some of them, and I had to manually change them. So, that was a little bit annoying, but it is definitely worth it. Now, once you&#x27;re done, you will get a typical agent ID, right? But here&#x27;s the part that you need to pay attention to ensure we can use this thing for algo trading. We&#x27;re going to have to feed the model some instructions. If you remember this video, which I made like 6 months ago, in it, I explained how to feed the custom instructions into any kind of LLM model.</p>
+<p>So it can give you output specifically for algo trading in Python with the JC framework of course. But now my goal is to be able to tell the IDE to hey write this strategy for me and it should do it exactly there so I won&#x27;t have to copy and paste code anymore and hopefully it should even be able to run the browser for me and maybe execute the back test for me or look into the results. Now in that video I open source the instructions. Now here&#x27;s the repository and I&#x27;m going to post a link of it in the description of the video. Now this is the file that you need instructions.mmd.</p>
+<p>So let&#x27;s open it and copy the whole thing. Then inside your IDE create a new file called agents.md and in it simply paste everything. Now by the way this is a new Jessie project and in case you forgot how to generate a new Jessie project just go to the documentation this page and this is the command. So just copy this and it will generate a new Jesse project for you. Then you also need to copy the vv file which I did and that&#x27;s it.</p>
+<p>Now to run this project all I need to do is to say Jesse run. Now, of course, you need to ensure you are running the correct cond environment so that it should have the correct Python version for you. So, let&#x27;s do this. There we go. It&#x27;s running it at this URL for you.</p>
+<p>This will probably be 9,000. I have changed the default port. So, let&#x27;s just copy this and open it inside our Chrome browser. Now, the default password is test. There we go.</p>
+<p>So, let&#x27;s go to the strategy section. Now, here we have the option to import one of the existing strategies from this community or we can create a new one. So let&#x27;s create a new one and I&#x27;m going to name it test one. All right. So this is the boiler plate that we get when generating a new strategy.</p>
+<p>But instead of coding it here I&#x27;m going to open anti-gravity and let&#x27;s open it here. All right. So I can close this now. Now here we have the option of planning and fast. For these tests I&#x27;m using the fast option.</p>
+<p>And for the model this is the most intelligent model right now Gemini 3 Pro high. But I am setting it on low because I found it to be good enough for these type of tasks and it is significantly faster. But if there is a point that it is not doing what you need, then set it to high. It also gives us unlimited access to cloud set 4.5 which is absolutely amazing. And I did test it and it works great.</p>
+<p>But let&#x27;s go with Gemini 3 Pro for this test. All right. So let&#x27;s keep it simple. Write a golden cross strategy. But to make sure that it knows we want to edit this file, I&#x27;m going to attach this file.</p>
+<p>Let&#x27;s hit enter. There we go. So it defined a short moving average with period of 50. Another one with 200. And here it is ensuring that a crossover is happening.</p>
+<p>Now this isn&#x27;t how I usually write a golden cross. I just keep it simple without the sequential true so that we don&#x27;t have to select the last item. But this should work just fine as well. And it also define the position sizing and everything looks fine. It&#x27;s also saying that once those position are no longer valid, you should liquidate the current position.</p>
+<p>So this is perfect code. Let&#x27;s accept it and let&#x27;s open the dashboard again. Go to the back test page. Let&#x27;s change this test one strategy. Choose the 15 minutes time frame.</p>
+<p>BTC USDT is fine. And the Binance perpetual futures exchange is also fine. This period is also fine for this test. Let&#x27;s enable the fast mode and let&#x27;s give it a go. And there we go.</p>
+<p>So it runs perfectly fine. It made 22% max radon of minus1 in the period of 2 months and a sharp ratio of three. So of course we are cherrypicking the period here but it seems to be working really well. So next I want to see if the model is smart enough to add some kind of filter based on the condition that I am describing to it. The strategy is good but it is taking too many trades.</p>
+<p>Can you define some kind of filter for it to not take trades in ranging markets? Let&#x27;s see how it does. Now, one issue that I&#x27;m facing with this editor is that I find it to be a little bit slow like with the AI tasks and maybe this is because they launched it just yesterday and they are definitely under heavy traffic especially because it is completely free right now. But overall, I found cursor to be faster. Now, by the way, you can definitely use cursor to do exactly the things that I&#x27;m doing in this video, but it won&#x27;t be free. And also for the last part where I&#x27;m going to ask the IDE to control the browser, I don&#x27;t think cursor can do it as good as this one.</p>
+<p>All right. So it defined an ADX indicator. This is the correct syntax. Yes, it is. And in the shoot long method, it is adding this condition now.</p>
+<p>So this seems perfectly correct. So let&#x27;s accept it. Go back to the dashboard and rerun it one more time. And yeah, it works. All right.</p>
+<p>So it works, but it made the results worse, right? So here&#x27;s the next part that I wanted to do. So let&#x27;s go back and actually return the code to what it was, but this time rejected. And let&#x27;s open a new conversation entirely. Just give it this one one more time. Now I want to see if it&#x27;s able to add a new condition, test it with the browser all by itself, and if it&#x27;s not better, which it wasn&#x27;t in this case, it needs to be smart enough to roll back the previous code and tell me about it.</p>
+<p>So in other words, I want to see if this thing is actually able to do research for us. So maybe I want to keep running it for 20 or 30 minutes, right? So keep trying different combinations of indicators and things like that. So, we&#x27;re going to give it a simple test. If it passes this one, I&#x27;m pretty sure it can also do bigger things. So, this is the last thing I needed to work.</p>
+<p>The strategy is good, but it is taking too many trades. I need you to add an ADX filter and then open the browser and run the back test. If it improved the results, keep it. If it didn&#x27;t, remove it. Now, we also need to tell it what&#x27;s the URL of the dashboard.</p>
+<p>Right? So, let&#x27;s say the URL is let&#x27;s open Jesse. give it this exact URL, but also we can insert a new session. Let&#x27;s go back and paste the URL. Now, before I hit enter, I got to say that&#x27;s the first time that you do this, it&#x27;s going to ask you to set up some kind of extension and you should allow it to do that. Now, I already did.</p>
+<p>That&#x27;s why it says remove from Chrome. Now, now the other thing is that sometimes when it opens the dashboard, it needs the password, right? So let&#x27;s also give it that the password if needed is test. All right. So it started working and it is starting to navigate inside the browser. I&#x27;m going to say always allow so that it can always open the browser automatically.</p>
+<p>And let&#x27;s open the browser. There we go. So you see it is seeing the password page. Now it entered the password. Let&#x27;s give it some help here.</p>
+<p>Now, I&#x27;m going to fast forward the video a little bit because it can be slow sometimes. All right. So, it reran the strategy. Let&#x27;s go back to the ID. See what it&#x27;s saying.</p>
+<p>So, the back is running. Change the code. All right. So, it just implemented the ADX. Let&#x27;s see what it does now.</p>
+<p>Now, by the way, whenever there&#x27;s this blue color here, we can know that the agent is controlling the browser. So, that&#x27;s pretty helpful. It clicked on the rerun button. It&#x27;s seeing the new results now. So, let&#x27;s go back to the IDE.</p>
+<p>The ADX filter reduced the number of trades from 38 to 14, but it also significantly worsened the net profit from 22% to minus 4%. Based on the instruction, if it improves the result, keep it. If not, remove it. I should remove the ADX filter. I will now revert changes made to the file.</p>
+<p>It says I&#x27;ve completed the task. Here&#x27;s a summary of the experiments. Baseline back test. Here&#x27;s the result. With ADX filter, here&#x27;s the result.</p>
+<p>Although the ADX filter successfully reduced the number of trades, it significantly hurt the profitability turning it negative. As per your instructions to only keep it to improved results, I have reverted the changes to whatever it was. So, this is fantastic. There we have our answer. Yes, this thing can do research.</p>
+<p>Now, I know it took a while to finish the task for now, but imagine that you write this thing at night. You let it run and then you go to bed. You wake up tomorrow and it has tested maybe 100 different conditions for you. And right now, all of this is completely for free. So, it couldn&#x27;t get any better.</p>
+<p>Now, there&#x27;s a lot more we can do with it. If you like this video, please let me know in the comments and let me know if there&#x27;s any kind of experiments you want me to do with it and maybe record another video about it. Now, we are going to have a giveaway. A random person who likes this video, post a comment, and subscribe to the channel is going to win 1 million bunk token. All right, let&#x27;s pick the winner for the previous video.</p>
+<p>And the winner is Jesse. Thanks. Could you make this strategy for hard FX pairs? Now, my name isn&#x27;t Jesse. It&#x27;s solo, by the way. Thank you so much for your comment.</p>
+<p>Please reach out to me so I can send you your bank tokens. Thank you so much for watching. I&#x27;ll see you in the next one.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

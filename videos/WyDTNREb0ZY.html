@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Simulation . Flat Earth Quaternion Formulation Summary — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Flight Simulation . Flat Earth Quaternion Formulation Summary</h1>
+        <div class="meta">
+            <span>Channel: AeroAcademy</span>
+            <span>Published: 2021-09-21</span>
+            <span>2,060 words</span>
+            <span>Source: manual_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/WyDTNREb0ZY"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>INSTRUCTOR: We&#x27;ve now reached a good point to review and summarize the equations that we&#x27;ve developed for flight simulation. So this is the flat Earth quaternion formulation, and let&#x27;s just walk through</p>
+<p>a few of these equations. So these top six equations, these come from Newton&#x27;s second law, F equals Ma. So we&#x27;ll just write</p>
+<p>that out here. Newton&#x27;s second law. And the top three are for translational acceleration and these three here are for rotational acceleration.</p>
+<p>OK. And so for example, the translational acceleration here uvw depends on the aerodynamic and the forces due to aerodynamics and thrust. So this is aero/thrust forces.</p>
+<p>And then this next set is actually our gravity vector. Our gravity vector is a body force that depends on our orientation. And we&#x27;ve written</p>
+<p>the orientation here in terms of the quaternion. So this is gravity. And then finally, we&#x27;ve got Coriolis forces here. OK.</p>
+<p>I think I misspelled Coriolis, but you know what those are. OK. So that&#x27;s our translational. And then we could</p>
+<p>work through something similar for the rotational acceleration. So our changes in p, q and r, which are our rotation rates, depend on the inertia tensor of the aircraft in body fixed coordinates.</p>
+<p>So that sub b is the inertia tensor in the body fixed coordinate system. And then we also have a gyroscopic tensor here if there&#x27;s gyroscopic effects on board.</p>
+<p>So like a rotating propeller or a jet engine, something like that creates gyroscopic effects. So let me just label these. So this is the inertia tensor.</p>
+<p>These are gyroscopic. And then right here, we&#x27;ve got the aerodynamic and thrust moments. OK. So mx, my, mz these</p>
+<p>are moments that are due to the aerodynamics and the thrust combined. And then we&#x27;ve got a bunch more terms in here that fall out of this equation from this rotational version of Newton&#x27;s second law, very</p>
+<p>similar to these Coriolis type effects. But it depends on your inertia or differences in inertia and your rotation rates. So that&#x27;s what the</p>
+<p>rest of this here is. OK, then these bottom six equations are what we call the kinematic transformation equations. And basically those depend-- here we&#x27;re using the</p>
+<p>quaternion formulation and previously we&#x27;ve seen this in terms of the Euler angle formulation. But for example, we have uvw this is our velocity vector in body fixed coordinates and we need to know the change in our</p>
+<p>location on Earth due to that. Well, that depends on our orientation. And so this is the quickest way to do the math with the orientation</p>
+<p>using the quaternion formulation. So it&#x27;s these two multiplications. So we do this inner multiplication first, and then we do this</p>
+<p>outer multiplication, and then we can add a wind vector here. And this is really only good for the case of constant wind. So this simulation</p>
+<p>is assuming that wind is constant and not changing. And this is in Earth fixed coordinates. So basically our orientation or excuse me, our location are</p>
+<p>changing in x, y and z location we just add on the velocity of the wind because it&#x27;s moving the aircraft along with the wind, because uv and w is our velocity relative to the local air. Anyways, so that&#x27;s this</p>
+<p>top set of equations here. And then finally, we need to know our change in our quaternion as a function of time. And so that depends on</p>
+<p>our current quaternion and the rotation rates onboard the aircraft, pq and r, that&#x27;s our rotation rates in body fixed coordinates. So these are actually 13 equations that-- and actually we have</p>
+<p>one extra equation here in the Euler angle formulation. We had 12 equations and here we have 13 simply because we&#x27;ve got a quaternion representing our orientation instead of Euler angles.</p>
+<p>And remember, we have one extra degree of freedom in these. And so we&#x27;ve assigned-- we&#x27;ve said that our extra equation here is that E0 squared plus ex squared plus ey squared plus ez squared equals 1.</p>
+<p>So we&#x27;re going to use a unit quaternion and we&#x27;ll talk about how we renormalize that at each or every few time steps in order to keep that true throughout this simulation. OK.</p>
+<p>So this is an overview of the equations and just a couple of comments maybe to be made about these is that, in the literature or I guess just in general, people have had a difficult time with quaternions in the past.</p>
+<p>Sometimes they have the reputation of being difficult to understand and that probably has more to do with the scattered nature of the literature on quaternions than it does about the actual complexity</p>
+<p>of using a quaternion. So hopefully, the way that we&#x27;ve walked through quaternion it makes a lot of sense. Hopefully very straightforward. I don&#x27;t think there&#x27;s anything</p>
+<p>challenging to understand here. But some people have chosen to use Euler angle formulations for some simulations or direction cosine formulations because they are somewhat easier or more intuitive to understand what those direction</p>
+<p>cosines are or what the Euler angles actually mean. Because obviously we can&#x27;t look at some values for this quaternion and picture in our mind how this aircraft is oriented. We&#x27;d need to change this</p>
+<p>back to Euler angles in order to be able to have some intuition into the orientation of that aircraft. So anyway, but I don&#x27;t think that quaternions are really that much more difficult than the Euler angle formulation.</p>
+<p>And in fact, by using those other formulations, you pay a penalty. So for example, the direction cosine formulation requires about 2 times, if not more computation then the Euler, error excuse me,</p>
+<p>then the quaternion formulation. And because you&#x27;re integrating, remember you have nine components of this direction cosine matrix that you&#x27;re integrating forward in time instead of the four components of the quaternion.</p>
+<p>And then if you use an Euler angle formulation that actually requires somewhere around 11 times more computation. And that&#x27;s because the terms inside in these rotation matrices here, what&#x27;s</p>
+<p>happening inside of here, in the Euler angle formulation, we had a whole bunch of sines and cosines that have to be evaluated inside of those rotation matrices. And so sines and</p>
+<p>cosines actually take quite a while for a computer to compute compared to straight up multiplication, which is what the Euler angles are here just direct multiplication. Anyway, that&#x27;s why it can</p>
+<p>take 11 times or more, depending on how you code that up. It can even take more than 11 times the computational effort for the Euler angle formulation. So there&#x27;s a significant</p>
+<p>computational savings that you get by using quaternions if you&#x27;ve coded it up correctly. And then I just want to review some comments that we&#x27;ve made about orthogonality error. So orthogonality error is</p>
+<p>basically this equation right here. How close is the length of that quaternion equal to 1? How close to 1 are we? And in the early days when computers were new, they were analog computers or they were using first order integration methods.</p>
+<p>And so they developed this thing called the Corbett wright, Corbett wright method for reducing orthogonality error and actually works fairly well. It is sensitive to the gains that you choose for it.</p>
+<p>But you can be smart about that and it turns out working out pretty well. The thing is, it&#x27;s really not necessary for fourth order integration which is what we use today on digital computers.</p>
+<p>So I&#x27;m just going to make a note here. Not necessary for fourth order integration. And so the methods that</p>
+<p>we usually use today, there&#x27;s two common ones the RK4 Runge-Kutta four method or the Adams Bashforth Moulton method, which we&#x27;ve called the ABM method. Those are both fourth order integration methods.</p>
+<p>And so you can use periodic renormalization. Let&#x27;s see. Re-normalization. You can apply that periodically.</p>
+<p>In my simulations, I usually apply it after every full time step. So within RK4 we&#x27;re going to take one time step. And at the end of that time step</p>
+<p>I renormalize the quaternion. So anyway, you can apply that every time step or just periodically, every few time steps. And it&#x27;s much less</p>
+<p>computationally expensive than the Corbett wright method and is just as effective at taking care of this orthogonality error. Well, I guess just then to finalize the thought here on RK4 and ABM, these provide</p>
+<p>the fastest simulations for the amount of error. So we discussed that earlier, but these are the fastest simulations per error basically. So we looked at</p>
+<p>the amount of error that these different methods accumulate, specifically orthogonality error. And there is another kind of error, the drift error, which all of these methods are going to suffer from to some extent.</p>
+<p>And of course, you can always reduce the error by taking a smaller time step. So we looked at that what&#x27;s the effect of taking a smaller time step using a higher order method or a lower order method.</p>
+<p>And anyway, after you look at all these trade offs, the RK4 and the ABM method tend to give the fastest simulations for the amount of error that gets accumulated. Now, the drift there really</p>
+<p>isn&#x27;t much of an issue because it&#x27;s similar to having your aerodynamic model off by a little bit, which is pretty normal. I mean, the aerodynamic model that you&#x27;re using for these simulations</p>
+<p>isn&#x27;t going to be exact. And so a little bit of drift error basically will feel like a little bit of error in that model. And so that will be</p>
+<p>simply corrected out by the pilot or the autopilot or whatever. So anyway, so let&#x27;s just comment really quickly on this periodic renormalization.</p>
+<p>So we&#x27;ve talked about two different ways to do it. This is the exact solution for renormalizing the quaternion. This is the exact solution.</p>
+<p>And then we also looked at using a Taylor series expansion of this and including only the first two terms. And so this is an approximate solution.</p>
+<p>So this is the approximate solution. And actually, if your errors is small, then this approximate solution is plenty sufficient.</p>
+<p>So if you&#x27;re applying this every single time step, you can use this approximate solution which is quite a bit faster actually to compute than the exact solution because in the exact solution you have a square root and a</p>
+<p>division that has to happen and this can all happen with direct multiplication. So this approximate method, if you&#x27;re renormalizing the quaternion after every full time step, you can use the</p>
+<p>approximate method. And it&#x27;s plenty accurate. OK. Because your error is still small.</p>
+<p>And by the way, in the previous video when I developed this, I wrote this in terms of the error, what we defined as errors. So epsilon equals 1 minus and then it was E0 squared plus ex</p>
+<p>squared plus ey squared plus ez squared. And anyway, so we came up with an equation in terms of epsilon. But if you just plug-in this definition for epsilon, then you come up with</p>
+<p>this equation here. So that&#x27;s where that comes from. So hopefully, this has given you a good overview of the quaternion formulation. And I hope that it doesn&#x27;t</p>
+<p>sound too daunting. These equations, I think are pretty straightforward and it should be something that you can implement due to our discussion here. Hopefully, it&#x27;s not too</p>
+<p>challenging to implement. And so next, we&#x27;ll be talking about the actual aerodynamic forces and moments. How do we compute those on an aircraft and how do we develop an</p>
+<p>aerodynamic model or a thrust model for a particular aircraft. And one last thing I should mention before we move on is that this is specifically the flat Earth quaternion formulation. And so this is x.y.</p>
+<p>and z. This is assuming that this aircraft is flying on a perfectly flat Earth, which is not a bad approximation for short flights.</p>
+<p>Anyway, so it turns out this is what we&#x27;re going to start, but eventually we&#x27;re going to then map our coordinates to a geographic coordinates. And so that will be the final state of our simulator.</p>
+<p>We&#x27;ll be able to tell us where on the Earth we are. But the physics here, what&#x27;s presented here is just in flat Earth coordinates.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

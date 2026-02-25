@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 18: Rotation and How to Represent It, Unit Quaternions, the Space of Rotations — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Lecture 18: Rotation and How to Represent It, Unit Quaternions, the Space of Rotations</h1>
+        <div class="meta">
+            <span>Channel: MIT OpenCourseWare</span>
+            <span>Published: 2022-06-08</span>
+            <span>12,969 words</span>
+            <span>Source: manual_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/uiG6KY0Cqd8"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>[SQUEAKING] [RUSTLING] [CLICKING] BERTHOLD HORN: OK, let&#x27;s start. This should be a fun diversion from other things we&#x27;re doing. We&#x27;ll develop methods that are useful in photogrammetry and robotics, in particular,</p>
+<p>dealing with rotation, which has some strange properties. So for example, in the case of translation, things are commutative. If I go 5 meters in</p>
+<p>x and 10 meters in y, I end up in the same place as if I go 10 meters in y and 5 meters in x. This is not the case with rotation. And to illustrate, I suppose</p>
+<p>that this is the x-axis and this is the y-axis. So I&#x27;m going to take this eraser and rotate it 90 degrees about the x-axis like that and then 90 degrees about the y-axis.</p>
+<p>And I end up there. And I take the equivalent eraser. And I rotate it 90 degrees about the y-axis and then 90 degrees</p>
+<p>about the x-axis. And I&#x27;m there. So fortunately, that worked. So they&#x27;re not the same. And so it&#x27;s not commutative.</p>
+<p>So it&#x27;s a little bit more difficult to deal with, particularly when it comes to least squares problems and fitting of data to observations. So here is an</p>
+<p>outline of what we&#x27;re going to be talking about-- properties of rotation, different representation for rotations, and in particular, the one we&#x27;re going to pick, which is Hamilton&#x27;s quaternions. And they are more general.</p>
+<p>But if we restrict attention to unit quaternions, they map directly onto rotations in 3 space. They allow us to talk about a space of rotation.</p>
+<p>So for translation, obviously, 3 space is our space of translations. And if we do some optimization, that&#x27;s the space we&#x27;re searching in. That&#x27;s the space we tessellate.</p>
+<p>That&#x27;s the space where we get our answers, whereas it&#x27;s not so obvious with rotation. Say you want to take an average of force on a seat belt over all</p>
+<p>possible orientations of a car. That&#x27;s something that, if it was translation, it&#x27;d be trivial. You just integrate over some volume of space, divide by its volume.</p>
+<p>And you&#x27;re done. So that&#x27;s something we&#x27;ll be able to do. Applications are, for us, mostly in photogrammetry, although they&#x27;re very important</p>
+<p>in robotics and graphics and control of spacecraft. So we&#x27;ll talk about some of that. And in particular, using this, we are going to develop</p>
+<p>a closed-form solution to the problem that we started talking about last time, which is either measurements in two different coordinate system of the same object or measurements in one coordinate system of two objects or one object that moved.</p>
+<p>So and just for fun at the end, we&#x27;ll briefly talk about division algebras and space-time. And so here are some of the things I mentioned, where we need</p>
+<p>to have a good representation for rotation-- obviously, in machine vision, for recognition, and for determining the orientation of an object in space, for the robot arm to, and so on-- so down to protein folding, cryo-- electron microscopy. We all need a good</p>
+<p>representation for rotation there. And in particular, with robotic situations, we&#x27;re dealing with motions in space-- Euclidean emotions, which can be decomposed into translations and rotations.</p>
+<p>And the Euclidean motions have the property that they preserve distances between points. They preserve angles between lines.</p>
+<p>And they preserve handedness, which sometimes we forget. But if we don&#x27;t put that in, then we&#x27;re going to get reflections. As you know, most of the</p>
+<p>biologically important chemicals exist in one particular form. The mirror image form doesn&#x27;t work. And so it&#x27;s kind of important</p>
+<p>to preserve handedness. Put together, those mean that we preserve dot-products. And we preserve triple products. And we&#x27;re leaving out, by</p>
+<p>doing this, transformations of free space that would otherwise be perfectly reasonable, such as reflections and skewing and scaling. We&#x27;ll talk a little bit about scaling.</p>
+<p>But mostly, for the moment, we&#x27;ll leave it out. So rotations, first Euler&#x27;s theorem-- any rotation of a rigid object has the property that there is a line that is not changed.</p>
+<p>That&#x27;s the axis. Then there&#x27;s the parallel axis theorem, which says that any rotation about any axis is equivalent to a rotation about an axis through the origin</p>
+<p>plus a translation. So for us, it&#x27;s going to be very convenient to separate translation and rotation this way that when we talk about rotation, that we&#x27;re trying to recover-- we&#x27;re just going to talk</p>
+<p>about rotation about an axis through the origin, because we deal with the translation separately. And because of the parallel axis theorem, we can do that. Then if we figure out</p>
+<p>how a sphere rotates, we&#x27;ve basically figured out how everything rotates, because we can-- and that sort of simplifies thing. We can just think of a sphere rotating in space and all the possible</p>
+<p>ways that can happen. And that, then, corresponds to rotation of space. When we talk about attitude, we basically mean orientation.</p>
+<p>We mean orientation relative to some standard. So for example, we might have models as we had when we&#x27;re talking about the patents, except now in 3D.</p>
+<p>And they&#x27;ll be in some preferred coordinate system. And when we talk about locating that object, we&#x27;re talking about finding its position in space and finding its rotation</p>
+<p>relative to that reference rotation. So by the way, this is going to be on Stellar, this whole presentation. Then there&#x27;s a four-page blurb that summarizes everything you want</p>
+<p>to know about quaternions. Or maybe not. Maybe everything you need for this course. Degrees of freedom.</p>
+<p>So we talked about this last time, that there happened to be 3 degrees of freedom to rotation, and that can be slightly confusing. What&#x27;s interesting is</p>
+<p>that rotational velocity is much easier. Angular velocity-- all we need is a vector that gives us the axis and a rate, so many radians per second. And if we take the axis and</p>
+<p>multiply it by the rate, we have a 3 vector. And those 3 vectors add, just like translations. So if you&#x27;re spinning around the x-axis at 1 radian per second, you&#x27;re spinning about the</p>
+<p>y-axis at 1 radian per second, then you&#x27;re spinning about the 1, 1, 0 axis. So it&#x27;s very easy to just add these up. And of course, that can change.</p>
+<p>So now, you&#x27;ve moved a little bit. And the next time instance, the axis will be different, So but instantaneously, rotational velocity is very easy.</p>
+<p>And this, for those of you who know about these things, corresponds to the Lie algebra versus the Lie group. The rotational velocities or the Lie algebra.</p>
+<p>It has all the nice properties of an algebra. The rotations, which are sort of the integral of that, don&#x27;t. They don&#x27;t have quite</p>
+<p>those nice properties. Poisson&#x27;s formula tells you what the velocity is of some point when there&#x27;s a known rotational velocity-- right-- rotational velocity. So omega is that</p>
+<p>vector, the axis of which is the axis of-- the direction of which is the axis of rotation. And the magnitude of it is the rate of rotation. And then if we</p>
+<p>have some point, r, we just take that cross product to figure out what the velocity is. And obviously, it&#x27;s going to be perpendicular to r. And it&#x27;s going to be</p>
+<p>perpendicular to omega. And you can get its direction by using the right-hand rule. So rotational velocity is simpler.</p>
+<p>They add. And we just saw finite. Finite rotations don&#x27;t commute. And we talked last time about how they&#x27;re n times n minus 1</p>
+<p>over 2 degrees of freedom. And for n equals 3, that happens to give you 3. So often we talk about rotation about axes like I just did-- rotation</p>
+<p>about the x-axis, rotation about the y-axis. And if you follow that view, then you might think that in n dimensions, rotation is n dimensional. And therefore, it is better</p>
+<p>to think about rotation as rotation preserving certain planes. So for example, we can preserve the xy plane. We can rotate in such a way that</p>
+<p>the xy plane is not changed. Things in the xy plane are moved into xy plane somewhere else-- yz plane and zx plane-- also, 3. But that one works, because in 2D, we only have the xy plane,</p>
+<p>1 degree of freedom. And in 4D, we have six combinations. And that&#x27;s the number of degrees of freedom of rotation in 4D.</p>
+<p>So before we go further, here&#x27;s an interesting thing that we will exploit. And also, it&#x27;s a kind of preview of a method we&#x27;ll use, which is cross products. Cross products, as I mentioned,</p>
+<p>are kind of confusing, because you take the product of two vectors. And you get another vector, which isn&#x27;t quite right. But it happens to have</p>
+<p>3 degrees of freedom. So we represent it as a vector. And again, that&#x27;s a coincidence. What is it? Well, it&#x27;s perpendicular to the two vectors you started with.</p>
+<p>And so in higher dimensional space, if you take-- if you say, what are the things that are perpendicular to two vectors, well, they&#x27;re not going to be a vector.</p>
+<p>There&#x27;s going to be a whole subspace. So the generalization of a cross product would be something more complicated.</p>
+<p>Like, one way to generalize it in an n-dimensional space, is it&#x27;s that vector that&#x27;s perpendicular to n minus 1 other vectors. Well, here, n minus 1 happens to be 2.</p>
+<p>So that&#x27;s the way we get our cross product. And it&#x27;s actually very convenient for certain operations, particularly, matrix vector operations, to represent</p>
+<p>the cross product in this way, where we take the skew-symmetric matrix. And we can represent A cross B by multiplying that skew-symmetric matrix by B. And it has the right</p>
+<p>degrees of freedom, right, because A has 3 degrees of freedom. A skew-symmetric matrix has 0 on the diagonal. And the off-diagonal</p>
+<p>is symmetric. So you again have 3 degrees of freedom. So that seems like a reasonable isomorphism.</p>
+<p>And then once you&#x27;ve done that, you&#x27;ve gotten rid of this weird thing, the cross product. And you have something that you can manipulate in combination with</p>
+<p>other vectors and matrices. Now, of course, why did we pick A to expand as the matrix? We could equally well have picked B and have written it this way, equally valid.</p>
+<p>And you&#x27;ll notice this matrix is a transpose or negated version of that matrix. So the matrix for B-- so it&#x27;s order dependent. And we know that, because cross products don&#x27;t commute.</p>
+<p>So there are loads of representations for rotation, which tells you that there&#x27;s a problem. With translation, we just have xyz, be done with it.</p>
+<p>So one notation that&#x27;s very useful is axis and angle. So we have an axis, which can be given as a unit vector. And we have a number of degrees</p>
+<p>that we rotate or radians that we rotate through. So that&#x27;s 3 degrees of freedom, because the unit vector only has 2, and plus the angle gives us 3. Now, sometimes we can derive</p>
+<p>other notations from that. One of them is the Gibbs vector, which tries to combine those two into a single thing. So this is sort of</p>
+<p>inconvenient in a way, because you&#x27;ve got a 3 vector, which happens to be a unit vector. And then you have this thing. So the Gibbs vector is a vector-- and it turns out that you don&#x27;t</p>
+<p>want to just multiply by theta. That doesn&#x27;t give you a nice algebraic properties. It&#x27;s much better-- plus theta wraps around 2 pi.</p>
+<p>So that doesn&#x27;t really make much sense anyway. And Gibbs found out that you can get some useful properties by taking tan theta over 2. So now, you have a vector.</p>
+<p>It&#x27;s no longer a unit vector. So it has three components. So it has the right number of degrees of freedom. Only bad thing is</p>
+<p>it blows up at theta equals pi, right, because 10 of pi over 2 is infinite. And theta over pi-- so is that a problem? Well, rotating through 180 degrees, that&#x27;s a perfectly reasonable thing to do.</p>
+<p>So it&#x27;s not like we want to exclude that, because it&#x27;s not a reasonable thing to do. So that is a problem. And it&#x27;s very similar</p>
+<p>to y equals mx plus c when the line happens to be perpendicular up, parallel to the y-axis. Then we have Euler angles. And there&#x27;s a classic text in mechanical engineering by Gold which explains</p>
+<p>about Euler angles. Basically, you rotate about x. You rotate about y. You rotate about z. If you&#x27;re in an airplane,</p>
+<p>you have roll, which is rotation about the axis-- length-long axis of the plane. Then you have pitch, which is going up or down. And then you have yaw, which is going left and right.</p>
+<p>So it&#x27;s very convenient to think about that. But as you know, the result will depend on the order. So yeah, if you have very small</p>
+<p>angles of roll, pitch, and yaw, which is a comfortable airplane flight, it probably doesn&#x27;t matter a lot, because you get pretty much the same result if you compose them in different orders. But if you have large</p>
+<p>angles, like 90 degrees, it&#x27;s definitely not going to work. So that means if you define Euler angles, you&#x27;ve got to do several things. One of them is you have to</p>
+<p>define the order of operations. Does the x-axis come first and so on-- plus other rotations about the new axes after you rotate or about the original axes.</p>
+<p>Anyway, as a result of this, as Gould points out, there 24 different definitions for Euler angle. And there hasn&#x27;t been an international meeting to say, thou shalt use this one.</p>
+<p>So it&#x27;s pretty confusing. Then we have, of course, orthonormal matrices, which I&#x27;m sure you&#x27;re all very familiar with. And they have these two</p>
+<p>constraints on them. And then this one is a kind of exotic one. This represents a rotation matrix in an exponential form.</p>
+<p>So what does this mean? Well, here this capital omega is that 3 by 3 skew-symmetric matrix that you get for cross product. And so what does it mean to have exponential with a matrix in the exponent? Well, you just use the formula</p>
+<p>for e to the x, except now, x is the matrix instead of scalar. So you&#x27;re going to end up with 1 plus x plus 1/2 x squared and so on, where x now is a matrix.</p>
+<p>So you can make this work. But we won&#x27;t pursue this. And the others-- so here&#x27;s another one. Stereography-- so there are lots</p>
+<p>of projections of the sphere. And there&#x27;s a whole cottage industry dating back hundreds of years, because people found it necessary to take the spherical or almost spherical Earth and map it onto a plane.</p>
+<p>So they could sell maps. And so there are lots of these. One of them is conformal-- that is, it preserves angles. And it&#x27;s called stereography.</p>
+<p>And as we said, a rotation of a sphere induces rotation of the space. So we can take a sphere, map it onto the plane, then mush things around in the plane, and map them back</p>
+<p>onto the sphere. And if we mush things around just the right way in the plane, then we actually have induced the rotation on the sphere. We&#x27;ll look at a picture of that.</p>
+<p>Again, we&#x27;re not going to use that. But it&#x27;s kind of amusing. The thing you do in the plane is to treat the plane as a complex plane and do some</p>
+<p>homogeneous transformation on that. And then, of course, physicists have to invent their own stuff. So there&#x27;s a type of 2 by 2 complex matrix that can be used to represent</p>
+<p>rotation that Pauli came up with, the same man who&#x27;s famous for saying, that paper isn&#x27;t even wrong as a criticism of one of his colleagues. So 2 by 2 complex numbers-- that sounds like 8 degrees of freedom.</p>
+<p>Well, they&#x27;re not just any. They have to be Hermitian. And they have to be unitary. So it turns out that after you do that, there are only 3 degrees of freedom left.</p>
+<p>Then we get to Euler parameters, sometimes also called Gonzalez parameters-- Rodrigues parameters. Excuse me. And then we get to unit quaternions.</p>
+<p>Now, of course, there&#x27;s a relation between all of them. And in fact, it&#x27;s important to be able to convert between them. And we&#x27;ll do some of that.</p>
+<p>And it&#x27;s a little bit like many other problems, where you&#x27;re trying to solve something. And it turns out, if you have the right representation, the answer is easy. And so often, the problem, then,</p>
+<p>ends up being the conversion. And so then you find that, well, the conversion is-- just like in the trivial case, we could have polar coordinates versus Cartesian coordinates.</p>
+<p>And maybe the answer in polar coordinates is trivial, but it&#x27;s not in Cartesian coordinates. And then you&#x27;re left with a conversion.</p>
+<p>Well, in that case, the conversion is not too hard. But here, sometimes it is. So let&#x27;s start with that. This is Rodrigues.</p>
+<p>Rodrigues was a banker in Paris. And apparently, he found banking a fairly boring profession, because he&#x27;d spend his nights doing math. And so this is one</p>
+<p>of his results. Basically, the operations we&#x27;re going to want to do are two. One operation is take a vector and rotate it, or find out what that vector is in a rotated</p>
+<p>coordinate system equivalent problem. The other one is composing rotations. We&#x27;ve rotated a little bit in this-- around this axis.</p>
+<p>Now, we&#x27;re going to rotate about another axis. What is the overall result? And that turns out to be non-trivial. So this, here, is addressing</p>
+<p>that first problem. So we have a vector, r. And we have an axis of rotation that&#x27;s here vertical. And we&#x27;re going to</p>
+<p>rotate through an angle theta about that axis. And that will take us to a new position, r prime. And the question is, how do you compute r prime? Well, if we first convert</p>
+<p>it to a 2D problem in this plane indicated by this ellipse, then it&#x27;s very easy, because we just take this vector and that vector and combine them in a weighted fashion. So this dotted vector is this</p>
+<p>vector times cosine theta plus this vector times sine theta. So you can see how, when theta is 0, the dotted vector will be equal to this one.</p>
+<p>And when theta is equal to 1-- pi over 2, it&#x27;ll be equal to this vector. And all the way along, it retains its length and so on. So in 2D, the rotation as</p>
+<p>we know it is very simple. And like mathematicians want to often do, we reduce a complicated problem to a simpler one we already know how to solve. But that&#x27;s in this plane.</p>
+<p>And so we first have to figure out what these two vectors are that we are combining using cosine and sine. And so first of all, this one here-- so how do we get that one? Well, we take r.</p>
+<p>And we subtract out this vector, right? And the difference is going to be this vector here. Well, that means that we need to know what this vector is.</p>
+<p>Well, that&#x27;s just projecting r onto omega. And since omega is the unit vector, it&#x27;s very easy-- there is a formula. And so therefore, this</p>
+<p>vector is r minus that thing. And then finally, we need to know what this vector is. And basically, that vector has to be perpendicular to omega.</p>
+<p>And it has to be perpendicular to this, because in this plane, it&#x27;s pi over 2 away from that vector, right? So by taking the cross product of-- let&#x27;s see-- this thing here with this thing here, we end up with, after</p>
+<p>simplification, just omega cross r. And it makes sense, because it&#x27;s going to be perpendicular to r. And it&#x27;s going to be perpendicular to omega.</p>
+<p>Anyway, you put all of those things together. You get this formula. So r prime, the vector after rotations, is cosine theta r, the</p>
+<p>vector before rotation, plus these terms. And you can see that rotation is not quite that trivial. So anyway-- so axis and angle is a useful notation.</p>
+<p>And it&#x27;s often a good way to visualize things. It&#x27;s easy to say, OK, we&#x27;re rotating about the x-axis through 90 degrees-- easy to understand what it is. What&#x27;s a disadvantage? The disadvantage is composition.</p>
+<p>If you have two rotations given as axis and angle, how do you combine them into a single? We know by Euler&#x27;s theorem, there&#x27;s a single rotation that represents the combination.</p>
+<p>But how do you combine them? Well, it turns out what I would do is convert both of these to some other form, like orthonormal matrices. Multiply the orthonormal matrices.</p>
+<p>Go back to this form. So that&#x27;s a disadvantage. There is no-- you can rotate vectors. That&#x27;s the one</p>
+<p>operation we want. It&#x27;s hard to do composition of rotation. So OK, well, we&#x27;ll skip this. This is the exponential-- the algebra view of things.</p>
+<p>And that, too-- let&#x27;s forget that. I just wanted to point this one, which we mentioned. So here, the idea is</p>
+<p>that here&#x27;s our sphere that we&#x27;re going to rotate. And we project it onto a plane, which happens to be tangent at the North Pole. And this projection-- if</p>
+<p>your center of projection is the South Pole-- so you go from the South Pole to a point on the surface and that-- then extend that line until it hits that plane. And you will see a couple of things.</p>
+<p>One of them is you can map the whole sphere onto a plane-- well, except the South Pole, right? The other one you can see is areas are going to be distorted, right, because if we&#x27;re dealing</p>
+<p>with, say, Alaska up here, it&#x27;s going to be mapped onto the plane without much magnification. But if we&#x27;re looking at Australia, it&#x27;s going to come out way over here.</p>
+<p>It&#x27;s going to be huge. So this particular map projection is actually used for the polar regions, because most of the other map projections don&#x27;t work very well there.</p>
+<p>But it does have that feature. And why is it liked so much? Well, because it doesn&#x27;t distort shapes. So it preserves angles. Most-- all other projections</p>
+<p>have the property that they will distort shapes. They will distort areas. You have your choice. You can pick projections that preserve area.</p>
+<p>You can pick projections that preserve shape angles. But you can&#x27;t do both. OK, so we start off-- we take our sphere.</p>
+<p>We projected it onto this map-- this plane, which is the complex plane. Then in that complex plane, we do this operation. So z is a complex variable</p>
+<p>coordinate in this plane. And z prime is its new position. So and a, b, c, d are complex numbers. So everything in that plane</p>
+<p>is going to get moved around. And now, we project it back on the sphere. And the amazing thing is that the pattern on the sphere is just the rotated version</p>
+<p>of what it was before. And therefore, we can think of rotation in 3 space, instead, in terms of some operation in the complex plane, which is pretty amazing. So that&#x27;s yet another</p>
+<p>representation. OK, so what are the desirable properties? We already mentioned some of them. We need to be able to rotate</p>
+<p>vectors or equivalently rotate coordinate systems. But also, we need to be able to compose rotations. We would like to have an intuitive representation.</p>
+<p>Like, axis and angle is sort of intuitive. It&#x27;s easy to understand what that is, whereas if you look at the rotation matrix, you look at the numbers-- what do they mean? I don&#x27;t know.</p>
+<p>You multiply a vector and see what happens. But the numbers don&#x27;t directly mean anything. If you know a little bit</p>
+<p>more about it, you say, well, if I look at the trace with the sum of diagonal elements, it&#x27;s-- I don&#x27;t know-- 2 times 1 minus the cosine of the angle of rotation. But it&#x27;s not very intuitive. Then is it redundant? Well, orthonormal matrices are</p>
+<p>a prime example of something that&#x27;s definitely not redundant, because we have 9 numbers to represent three things. Yeah. Right, that&#x27;s a very good point.</p>
+<p>So so much for my story about it not being intuitive-- well, if you think about rotating the x-axis, i.e. 1, 0, 0-- multiply the matrix by that-- you get the first column.</p>
+<p>So as he&#x27;s pointing out, the first column is a significant vector. It&#x27;s what happens to the x-axis. Second column is what happens to the y-axis.</p>
+<p>Third column is what happens to the z-axis. So you can understand the rotation matrix that way. And similarly, you can</p>
+<p>talk about the rows going in the other direction. But you wouldn&#x27;t know the axis of rotation or the angle of rotation. So but yes, that&#x27;s a good point. OK, redundant-- so let&#x27;s see.</p>
+<p>Axis and angle-- well, axis and angle is kind of redundant, because if we have a vector, it has three components plus an angle is four. Gibbs vector is not redundant, because we&#x27;ve multiplied the vector by</p>
+<p>the tangent of theta over 2. But we don&#x27;t want singularities. Gibbs vector has a singularity. So we&#x27;d also like it to be computationally efficient.</p>
+<p>And we&#x27;ll get into that a little bit. And we want to be able to do lots of things, for example, interpolate orientation.</p>
+<p>So in graphics, we might often have some person performing some dance or action in the world. And we would like the artist to only have to specify certain distinct</p>
+<p>points rather than every frame. And so we&#x27;ll need to interpolate. Well, if that person is rotating, how do we interpolate? How do you do a</p>
+<p>partial rotation? And so you might say, well, half a rotation-- that&#x27;s the square root of the rotation matrix, right, because if you multiply that by itself, you get the rotation matrix. But how do you get the</p>
+<p>square root of a matrix? So that&#x27;s something. Another thing we might want to do is get averages over ranges of rotation. For us, a big deal is</p>
+<p>going to be optimization. We&#x27;re going to try and fit coordinate system. We&#x27;re going to try and fit measurements to models.</p>
+<p>And in that case, we need to be able to do things like take a derivative and set the result equal to 0. Well, the derivative with respect to the rotation matrix-- that doesn&#x27;t make</p>
+<p>a lot of sense. What is it? Well, something with nine components. But how do you enforce the constraints? Then in some cases where</p>
+<p>we can&#x27;t get a closed form solution, we might want to sample that space and try some subset. But we&#x27;d like to sample the space in an efficient way, which means we want to sample it uniformly.</p>
+<p>So if there was a translation space, we&#x27;d just chop up space into voxels equally spaced. And we&#x27;d be done. Or if we go into--</p>
+<p>for a random sampling, we could just generate a random x between the range and the random y between-- in a certain range and the z in the certain range. But how do you do</p>
+<p>that for rotations? Now, if you did it in Euler angles, you could say, OK, well, I&#x27;ll take the first angle between minus 90 and plus 90 and then the second angle and so on. And you get into non-uniform</p>
+<p>sampling of the space. For example, a much easier example is on the sphere, we can use latitude and longitude as coordinates. But if you use that to</p>
+<p>control your sampling, you&#x27;re going to sample much more closely near the two poles, right? So that&#x27;s one-- add one more dimension, and then you get the problem for rotations. So the idea of having</p>
+<p>a space of rotations is very attractive, because then we can tessellate that space. We can sample it uniformly or randomly. We can compute</p>
+<p>averages or whatever. So here are some of the problems we already talked about. The orthonormal matrices-- they&#x27;re redundant.</p>
+<p>And the constraints are complicated. Euler angles don&#x27;t make it easy to compose rotations, just as with angle and axis notation.</p>
+<p>Best thing you can do is convert it to orthonormal matrix and multiply. And then there&#x27;s gimbal lock. So I know you&#x27;re all too young for this.</p>
+<p>But there was a time when man went to the moon, which was a very exciting time. And when you listened on television and you ignored the stupid commentators that were talking over the</p>
+<p>communication from the cabin, you&#x27;d hear them talk about approaching gimbal lock. So what was that? Well, they-- Draper Lab built their navigation system. And it had gyroscopes in it.</p>
+<p>And gyroscopes basically have three-- that type of gyroscope has three axes. And it has a part that is spinning at high speed and wants to continue</p>
+<p>spinning around that axis. And then the cage basically allows the spacecraft to rotate about that fixed direction. But as with Euler</p>
+<p>angles, you can get to a situation, where two of the axes line up. And then you&#x27;ve lost a degree of freedom. And if you move</p>
+<p>through that point, you&#x27;ve basically lost your orientation in space. So they were carefully instructed not to go through that point, because their automated systems wouldn&#x27;t work correctly.</p>
+<p>And so that&#x27;s exactly the problem with Euler angles, that when you rotate one of them through 90 degrees, it lines up with the next one. And you&#x27;ve lost a degree of freedom.</p>
+<p>And so by the way, how do you solve it? Well, the easiest way is to have four axes. And in that case, unfortunately, you can no longer treat it as a passive system.</p>
+<p>You have to have an active system that drives the axes so that you never have two of them line up. Anyway, Euler angles-- Gibbs vector had that singularity.</p>
+<p>Axis and angle has the problem of composing rotations. And then of course, we don&#x27;t have a clear idea of what is the space of rotations. So we get to Hamilton, who</p>
+<p>lived in Dublin, Ireland. And he was fascinated by algebraic couples. So the view is that we think of complex numbers as pairs of reals.</p>
+<p>And can we somehow generalize that? And you want to have a nice algebra. You want to be able to add, subtract, multiply, and very important, you</p>
+<p>want to be able to divide. I mean, you can do all sorts of wonderful things. But if you can do that, then you can solve equations by subtracting, cross</p>
+<p>multiplying-- doing all those things we&#x27;re used to. And so there was a lot of interest in physics, particularly in dealing with vectors in space. Well, they weren&#x27;t</p>
+<p>called vectors, but dealing with points in space. And so the natural thing was, let&#x27;s go from real numbers to complex numbers to triples. And then what can we</p>
+<p>do with the triples? Well, you can multiply them. And of course, the dot products not much used for this purpose, because it&#x27;s a scalar cross product. Well, the trouble</p>
+<p>is if you&#x27;ve got a cross b, c equals a cross b. Can you say a equals c divided by b? No. So that was his problem. And it really puzzled</p>
+<p>him for quite a while. And he trained his children to, every morning he came down for breakfast, to ask him, papa, can you multiply triplets yet, which were these vectors-- we later call vectors.</p>
+<p>And then on this fateful day, he got it. And he went with his wife on his usual Sunday stroll through Dublin. And he committed a</p>
+<p>criminal act on the bridge. He engraved in graffiti the basic equation you need to solve this problem without explanation, just the formula. And then later when he</p>
+<p>described it, he&#x27;s saying, &quot;And here, there dawned on me the notion that we must admit, in some sense, a fourth dimension of space for the purpose of calculating with triples. An electric circuit</p>
+<p>seemed to close, and a spark flash forth.&quot; Remember, it was 1843. So there&#x27;s a lot of excitement about electric stuff but long before Tesla and Edison. And the key thing</p>
+<p>was that he decided you can&#x27;t do it with three. There&#x27;s no way to do it with three. But you can do it with four. And so then he</p>
+<p>wrote a book, which is basically incomprehensible. It&#x27;s like 800 pages of heavy math. But we&#x27;ll simplify it a lot. So the insight was, you can&#x27;t</p>
+<p>do it with three components. And then he took his cue from complex numbers, where we introduce a, quote, &quot;imaginary&quot; number. And he said, well, maybe</p>
+<p>if we have more of them, maybe there are other things, when you square them, they become minus 1. And so that was his key insight. He used the notation ijk, such that i squared and j squared and k squared are minus 1.</p>
+<p>And then very importantly, he added this ijk equals minus 1. And this is what he engraved in the bridge. And it&#x27;s still there,</p>
+<p>although heavily worn by mathematicians touching it to see if they can get the inside from-- anyway, from those you can get everything else. For example, if you want to know what ij is, well, you just</p>
+<p>multiply ijk by k. And you get k squared, which is minus 1. So it&#x27;s going to be minus 1 times-- and so on.</p>
+<p>So you get k So these others are all subsidiary. He didn&#x27;t bother engraving them. He just took the-- importantly, multiplication is not commutative.</p>
+<p>So ij is k ji is minus k. And that sort of corresponds to cross products. So this kind of suggests a connection with vectors.</p>
+<p>And so there are lots of different ways of thinking about quaternions. One is just simply as a real part and three different flavors of imaginary parts, rather than just</p>
+<p>one imaginary part. But then you can take these three and think of them as a vector in space and treat the whole thing as a scalar, q0, plus this vector and use this notation , which has a scalar,</p>
+<p>comma, vector part. Or you can just write it as a four-vector, a thing with four components. So I use this notation with a little circle over it to denote a quaternion.</p>
+<p>It&#x27;s not standard. So don&#x27;t get confused by that. But when I&#x27;m writing stuff, it&#x27;s very important for me to distinguish the scalar, the vector, and the quaternion.</p>
+<p>So I use the little circle to denote that. Another way of thinking about quaternions is as 4 by 4 matrices. And that brings us back</p>
+<p>to that isomorphism we had that was useful for cross products. There would be an isomorphism of quaternions with 4 by 4 matrices that allows us to do multiplication.</p>
+<p>And yet another way is to think of a complex composite of two complex numbers. So complex numbers are real plus i times the real. Now, imagine that you replace</p>
+<p>the real with complex numbers. You&#x27;ve got something with four components, because you&#x27;ve got to be careful, because you&#x27;ve got two different types of imaginary things.</p>
+<p>That&#x27;s actually a way we aren&#x27;t going to use. But it&#x27;s a way that leads you to other things. For example, you can</p>
+<p>use that idea again. And now, you get, instead of four components, eight. And then again, you can get 16 components.</p>
+<p>So you can build these algebras that have 1, 2, 4, 8, 16 components. And they get weirder and weirder. We&#x27;re going to stick with four.</p>
+<p>That&#x27;s as far as we need to go. OK, so here&#x27;s the view of multiplication using Hamilton&#x27;s basic explanation of how to multiply these things. Here are two quaternions.</p>
+<p>You&#x27;re going to multiply them. And obviously, we&#x27;re going to get 16 terms. And then j times k is minus i. And so we can gather them up as,</p>
+<p>again, a scalar part and then these three imaginary parts. And that&#x27;s the bottom baseline truth. But it&#x27;s kind of too detailed. It&#x27;s kind of hard to keep-- remember that.</p>
+<p>And it&#x27;s, for us, who now-- remember this was before vectors. But today we&#x27;re all into vectors and scalars. So in that notation, it&#x27;s a lot</p>
+<p>easier to write it this way. So here&#x27;s a quaternion p, a quaternion q. We multiply them together. And we get this quaternion.</p>
+<p>And the scalar part of it is just the scalar parts multiplied minus the dot product of the vector parts and so on. And it&#x27;s non-commutative. Why? Because it includes this</p>
+<p>cross product at the end here. So if we interchange these two, we&#x27;re going to get q cross p, which is, of course, minus p cross. OK, so this is actually a</p>
+<p>way we&#x27;re going to use it. Just it&#x27;s much more compact than this. Here is another notation that sometimes very useful.</p>
+<p>And this is analogous to the isomorphism we had between vectors and the skew-symmetric 3 by 3 matrices. Here, we have a isomorphism between a quaternion and a 4 by 4 matrix, which</p>
+<p>happens to be orthogonal. And if the quaternion is a unit quaternion, it&#x27;s also a unit normal. So this, actually, in our case is typically a orthonormal 4 by 4 matrix.</p>
+<p>And so this multiplication up here can be written as this product of a matrix times a vector. And there&#x27;s quite a bit of structure to this.</p>
+<p>You can see the first column is just the quaternion p. And then you can see that it&#x27;s sort of skew-symmetric, except for the diagonal, which would be 0 if it was skew-symmetric.</p>
+<p>And so we can write the product of two quaternions in that form. So we can write pq-- so this is just like cross product, where we said a cross b is some matrix times b.</p>
+<p>Similarly here, pq can be written as this matrix times q. And the matrix looks like this. And the matrix is orthogonal. And it&#x27;s normal if</p>
+<p>it&#x27;s a unit quaternion. And if we get rid of p0, then it&#x27;s skew-symmetric. And again, just as with cross products, we have the choice</p>
+<p>of either expanding the first part into a matrix or the second part. So here&#x27;s the other version, where now, we&#x27;ve turn q into a 4 by 4 matrix. And this 4 by 4 matrix</p>
+<p>looks a lot like this one. The first column is pretty much the same. The first row is pretty much the same.</p>
+<p>What&#x27;s different is this 3 by 3 submatrix is flipped. Its transpose. So they&#x27;re very similar. But and this corresponds,</p>
+<p>again, to the fact that multiplication is non-commutative. If those two pieces were the same, then this whole operation would have been commutative.</p>
+<p>So now that we&#x27;ve got the basics and different ways of representing it, it&#x27;s easy to prove some of these basic results. So first of all, it&#x27;s clear that it&#x27;s not commutative.</p>
+<p>And that&#x27;s why we&#x27;re talking about it. We wouldn&#x27;t be talking about it if it was a commutative because then there is no way that it can represent rotation.</p>
+<p>It&#x27;s associative, and that&#x27;s not too hard to prove. Just use the formula for multiplication. It&#x27;s just a bit</p>
+<p>of messy algebra. Then we define a conjugate. And the conjugate in analogy with complex numbers just means you negate the imaginary part.</p>
+<p>And then the next result you can get is that the conjugate of a product is the product of the conjugates in reverse order, which is just like matrix multiplication-- AB all transposed is B transpose A transpose.</p>
+<p>So there are some analogies here. And if you into physics, you realize that different heroes of physics had different ways of approaching quantum physics.</p>
+<p>And some of them like to do it with the complex number view. And some of them like to do it with a matrix view. And you can find that</p>
+<p>they&#x27;re kind of equivalent. Yeah, so I&#x27;ve done a little of that. And I&#x27;m going to do more of it. And the main reason is that we</p>
+<p>can get a closed-form solution, because we can differentiate with respect to a quaternion. We can&#x27;t differentiate with respect to orthonormal matrix. So that&#x27;s kind of</p>
+<p>the main reason. But there are these subsidiary reasons, like if you can&#x27;t get a closed-form solution, you can do a search in the space of rotations.</p>
+<p>And you can sample that space efficiently, either uniformly or randomly once you&#x27;ve got the notion of a space of rotation, which is the case with quaternions. OK, so a few other</p>
+<p>dot product-- well, the dot product, if we think of it as a four-vector, it&#x27;s just the ordinary dot product of a four-vector. If we think of it in terms of scalar and vector, well, then it&#x27;s the</p>
+<p>product of the scalars plus the dot product of the vectors. But underneath, it&#x27;s just q0 squared plus qx squared plus-- sorry-- p0 q0 plus px qx, et cetera. And therefore, there&#x27;s a norm.</p>
+<p>We can define a norm. And this is perhaps the most important. If we multiply q by its conjugate, it turns out, we get a real quantity.</p>
+<p>There&#x27;s no imaginary part. And it&#x27;s this. It&#x27;s the dot product of q with itself times e. Well, e is this quaternion</p>
+<p>that has a scalar-- it&#x27;s a scalar 1. And I could have just written 1 there. But that looks sort of funny. So I invented this symbol,</p>
+<p>which is a quaternion that has no vector part. And why is this important? Well, if you can do that, then you have division. So the multiplicative inverse is this.</p>
+<p>And that was the problem with the triplets. There was no way of defining an inverse. And here, we can define</p>
+<p>an inverse, well, except for q equals 0. But then that&#x27;s always a problem. So and so this means, for example, that we can get the inverse</p>
+<p>of a rotation very easily. First of all, in the rotation, we&#x27;re going to be dealing with unit quaternions. So q dot q is 1.</p>
+<p>So in the case of that unit quaternion representation, the inverse is just the conjugate, sort of like in the case of orthonormal matrices. The inverse is</p>
+<p>just the transpose. OK, and then there are a few other sort of minor properties. And you can just take those on faith.</p>
+<p>Or you can check them by doing the multiplications. So the dot product of products is the product of dot products. All surprising that.</p>
+<p>And then this first line is the special case of the second line, which is more useful in calculations. And then this one&#x27;s pretty handy.</p>
+<p>So what&#x27;s happened here? Well, sometimes we have a quaternion on one side. We&#x27;d like to move it to the other side of a dot product. And it turns out we can do that</p>
+<p>as long as we conjugate it. So we&#x27;ve moved the cue from the left side of the dot to the right side of the dot and just conjugated it. And it&#x27;s easy to prove that.</p>
+<p>We just multiply by cube, conjugate, and so on. So we&#x27;re going to use unit quaternions to represent rotation. And we&#x27;ll see right</p>
+<p>now how that&#x27;s related to the other notations for rotation, but we&#x27;re dealing with vectors. So what about vectors? Well, we&#x27;ll need to have a quaternion way of representing vectors. And of course, it&#x27;s obvious.</p>
+<p>We just leave out the scalar part. Conversely, if we wanted to represent the scalar, we could just leave out the vector part.</p>
+<p>OK, so we&#x27;re going to convert our vectors in 3D to these funny quaternions, purely imaginary quaternions, manipulate them in that space, and then bring them back into 3D. For this special case only of</p>
+<p>these types of quaternions, there&#x27;s lots of interesting properties. First of all, the conjugate, of course, is just negating it, because conjugate means negating the imaginary part.</p>
+<p>The dot product is just the dot product. So this is the dot product of the quaternions. This is the dot product of</p>
+<p>the corresponding vectors. And since the scalar part is 0, it&#x27;s obvious that this is the case. So we can easily Compute dot product. If we multiply two of</p>
+<p>these special quaternions, we get this funny thing. It has the dot product in it and the cross product. And this is why some critics of this notation called it a</p>
+<p>hermaphrodite monster. It&#x27;s got both sexes built into it, dot products and cross products. And they thought this was a disadvantage.</p>
+<p>For some purposes, this is actually an advantage. Then if we take the product of r and s and take the dot with t, we get the triple product, rst. And the triple product is</p>
+<p>often pretty useful, aside from computing volumes or something. And again, this is very simple to prove. Once you have a 0 scalar apart,</p>
+<p>then all you&#x27;re going to get is the vector part of t dotted with this thing, r cross s. And of course, that&#x27;s just r cross s dot t. That&#x27;s the triple</p>
+<p>product rst and so on. So that&#x27;s how we represent vectors. OK, scalars-- yeah, we can do that.</p>
+<p>Finally, we get to rotation. So how do we do rotation? Well, it turns out that simple product of a quaternion with another quaternion won&#x27;t do it, because it takes us out of 3D into 4D.</p>
+<p>We need an operation that takes us back into 3D. And so this is a little bit like you can do rotation in the plane by doing some operation that takes you out into 3 space.</p>
+<p>But then you have to have another part of the operation that takes you back into the plane, now, in a rotated form. So this is like that.</p>
+<p>If we multiply two quaternions, we&#x27;re basically doing an operation of rotation in 3 space. And now, we need to find a operation that doesn&#x27;t undo that but</p>
+<p>takes us back into 4 space. And this is exactly what happens here. So we take our vector, r, turn it into a quaternion</p>
+<p>with 0 scalar part. Then we pre-multiply by q and post-multiply by q conjugate. And magically, we&#x27;re back in the real world so that this quaternion, r</p>
+<p>prime, has a 0 scalar part. And so this is how we&#x27;re going to do rotation. Now, there are many different ways of analyzing this.</p>
+<p>One is to use that trick we had of representing quaternion multiplication as multiplication of 4 by 4 matrices and the four-vector, right? So we take these first two and turn them into that.</p>
+<p>And then we take the second multiplication. And this time, we turn the q conjugate into a matrix, this matrix over here.</p>
+<p>OK, so this operation is actually equivalent to that operation. And what is this? This is a 4 by 4 matrix. It&#x27;s a product of two 4 by 4 matrices.</p>
+<p>And if you multiply them out, you get this. And this-- the most interesting property of this is that the first row and the first column are mostly zeros.</p>
+<p>And the result is that if you have a vector in 3D, which has a zero part-- scalar part and multiply it by this, there&#x27;ll be no 0 scalar apart, right, because you&#x27;re multiplying this by 0. And then you&#x27;re adding all</p>
+<p>of these zeros multiplied by whatever. And you get 0. So all this has proved so far is that this operation will, in fact, get you back into 3D. So and this-- by the</p>
+<p>way, this submatrix is-- and this actually is our 3 by 3 orthonormal rotation matrix. OK, so that&#x27;s the equation we&#x27;re going to use for rotation. And this is the scalar part.</p>
+<p>We can compute the scalar part. And if the scalar part of the original vector is 0, we get 0 for the scalar part of the new vector. The vector part can</p>
+<p>be computed this way. So if you don&#x27;t want to jump into the ocean of quaternions, you can do everything using scalars and vectors. Here&#x27;s the formula, right? So just dot products and</p>
+<p>cross products-- very easy. When we use this operation, we can easily-- well, with a bit of algebra, we can prove that it preserves dot products, right? You just take this</p>
+<p>formula, apply it to r, then apply it to s, take the dot product. And you get r dot s. And so it preserves dot products.</p>
+<p>Similarly, it preserves triple products. Remember we had this special form that this multiplication gave us a triple product of the vector, the underlying vectors? Well, it preserves</p>
+<p>triple products. So that&#x27;s it. It&#x27;s a rotation, right? It preserves dot products. It preserves triple products. So that&#x27;s good.</p>
+<p>We don&#x27;t know yet what rotation, but we know it has to be a rotation, because it preserves length and angles. And it preserves handedness. And then the other thing</p>
+<p>we were talking about was not just rotating a vector but composing rotations. We wanted that to be easy. Well, so suppose we first rotate-- we take our vector, r.</p>
+<p>We rotate it using q. And then we take the result, and we rotate it using p. So we write this. And because these</p>
+<p>operations are associative, I can rewrite it this way. And that tells you, oh, composition of rotation is just multiplication of quaternions-- it&#x27;s very easy and actually computationally efficient, as well, which is very different</p>
+<p>from axis and angle notation or Euler angles, where it&#x27;s very hard to compose rotations. So then we need to figure out what rotation is it, or if we have specified rotation in some other form, how do we turn it</p>
+<p>into quaternion? Well, this is the formula that we just sort of derived on the previous page. And here&#x27;s Rodrigues&#x27; formula from a while back. And then if we identify</p>
+<p>corresponding pairs, first thing you notice is that q, the vector part, is parallel to omega. So the vector part of the quaternion is in the direction of the axis, which sort of makes sense.</p>
+<p>And we can actually prove that easily. If you plug q in here for r, what happens? Well, this part drops out, because a a cross 2 is 0.</p>
+<p>And then this becomes q dot q times q. And this becomes something times q. So the whole thing-- both of these are vectors</p>
+<p>in the q-direction. So r prime is going to be in the q-direction-- so very easy to show that q becomes q. And that&#x27;s Euler&#x27;s axis theorem. So it&#x27;s very easy to see that</p>
+<p>the vector part is parallel to the axis of rotation. We don&#x27;t know yet how long it&#x27;s supposed to be. And we don&#x27;t know what the angle is.</p>
+<p>But anyway, leave out some of this-- conclusion is this is our representation-- our conversion. So if we know axis and angle, we can compute the quaternion.</p>
+<p>So that&#x27;s one of the conversions between the-- we have eight different ways of representing it. So they&#x27;re 8 times 7-- 56 different conversions we could possibly do, but we&#x27;re not going to do them.</p>
+<p>So this is one. The other one we saw earlier, where we produce the orthonormal matrix. That&#x27;s another important one, because we use orthonormal</p>
+<p>matrices all the time. We need to be able to go back and forth between axis and angle, which is this formula, and between the orthonormal matrix, and that was that</p>
+<p>previous formula. Now, so there are two things about this. One of them-- this is a unit quaternion.</p>
+<p>We easily proved you take its dot product with itself. And you get cos squared theta over 2 plus sine squared theta over 2. So that&#x27;s one thing.</p>
+<p>So we&#x27;re not talking about arbitrary quaternions, just unit quaternions. And then the other thing that&#x27;s a little bit annoying is that minus q is the same rotation as plus q.</p>
+<p>Why? Well, imagine you plugged minus q into this formula. The minus is just-- disappear. So what does this mean? It means that if we think of the sphere as representing the</p>
+<p>space of rotation, opposite points are actually the same rotation. So it&#x27;s very nice to think of a sphere in four dimensions as the space of rotation. And then we can produce</p>
+<p>ways of sampling that space and taking integrals and taking-- computing averages and so on. But you have to keep in mind that you really only want half the sphere, because the opposite side, the reflected side represents</p>
+<p>the same rotations. And [INAUDIBLE] points are identified. So we&#x27;re going to use this in photogrammetry and in particular, in</p>
+<p>absolute orientation. We already talked about that. And this is from last lecture. So we got points in space identified, measured in two</p>
+<p>coordinate systems. We want to know the coordinate transformation between those two systems. And it&#x27;s dual to the other problem, where we have the same coordinate system.</p>
+<p>But we have two objects-- or we have one object moving. And we modeled it this way, where coordinates in the left system are rotated, and it&#x27;s translated to produce coordinates in the right coordinate system.</p>
+<p>And we want the best-fit rotation and translation, meaning we want to minimize some error. And what we&#x27;re given are a bunch of corresponding points measured in the 2</p>
+<p>coordinate system-- left-- left and right. And then we talked about this mechanical, this physical analog that we want to make these errors small. And so one way to do it is</p>
+<p>to have these springs, which have energy proportional to the distance squared. And the energy-- total energy in those springs is the sum of squares of errors. And the system wants</p>
+<p>to minimize that. So that&#x27;s the physical model of how it finds the rotation and translation. So then we did this. So this is the</p>
+<p>error term, right, because if I take the left coordinate and I rotate and translate it, I get this. And that should be equal to the right coordinate.</p>
+<p>And I subtract them. I get the remaining error. I square that. I add all of those errors. Then first step-- let&#x27;s</p>
+<p>find the translation. And we did this last time. One way to do it, which is not the way we did it in class, is just differentiate with respect to the translation, r0.</p>
+<p>And this notation-- this is the norm, which is really the dot product of this thing with itself. If we differentiate it, we get twice this.</p>
+<p>And we set that equal to 0. And then we can split. So we have a sum of three terms. We can split that into three sums.</p>
+<p>So for example-- of course, we get rid of the 2. That&#x27;s not very interesting. And we get this. And final result was</p>
+<p>just that the translation is what takes the centroid in the left system after rotation into the centroid of the right system. So that&#x27;s kind of intuitive and nice.</p>
+<p>It says that whatever your transformation is, it should map the centroid of this point cloud into the centroid of that point cloud. And one of the</p>
+<p>nice features of it is that you don&#x27;t even need correspondences. You just compute the centroid of those clouds. So for this part, you</p>
+<p>don&#x27;t need to know which point in the cloud corresponds to which point in the other cloud. And of course, right now we can&#x27;t get the answer, because we don&#x27;t know r. But this is the</p>
+<p>formula that we&#x27;re going to come back to at the end to get the translation. And so at that point, we can move the origin to the centroid and add a dash to the r&#x27;s, indicating they are now measured with</p>
+<p>respect to the centroid. So when we do that, the formula simplifies. Now that we&#x27;re minimizing this expression, where these r prime and</p>
+<p>R r prime and rl prime are defined in terms of coordinates with respect to the center, we subtract out the centroid-- subtract out the centroid there. And OK, then we take this. And we multiply this out.</p>
+<p>Again, the non-squared is just the dot product of this thing with itself. So think of it written out that way. Then when you multiply</p>
+<p>out, you get four terms. You gather them up, and you get this. And here, we use one little trick, which is that we noted</p>
+<p>that the length of a vector is not changed by rotation. So over here, we really get r times the left vector squared. But we know that after rotation, it&#x27;s the same length.</p>
+<p>So we just replace it. OK, and at that point, these two things are fixed. They&#x27;re given by the data. They&#x27;re not going to depend</p>
+<p>on the rotation you pick. So forget about them. We need to focus on this middle term. It&#x27;s the only one we</p>
+<p>have control over. We can change r. But it has a minus sign. So we&#x27;re trying to minimize something.</p>
+<p>So that means we want to maximize this term. And that&#x27;s what we got to last time. And I was explaining it in</p>
+<p>terms of the sea urchin analogy, where we&#x27;ve got these spines. And we&#x27;re trying to get them to be as lined up as close as possible so that their dot product is as large as possible. The dot product of</p>
+<p>corresponding point-- now, we need correspondences. And this is the classic problem in spacecraft attitude control. You have the direction to stars in your cameras.</p>
+<p>And you&#x27;re trying to line them up with the catalog directions. And of course, you want to make the-- and it&#x27;s a good analogy, because in this case, we don&#x27;t care about the length.</p>
+<p>We don&#x27;t have the length. We don&#x27;t know-- from the camera, we have no idea how far away the stars are. And we don&#x27;t care.</p>
+<p>And if we move sideways, actually that direction doesn&#x27;t change, because in comparison to the distance to the stars, our own motion is microscopic. So this would be the thing you want to maximize in that case.</p>
+<p>And but how do you do it? Well, we&#x27;re sort of tuned to using calculus to solve all these problems-- just differentiate with respect to the unknown transformation. But what does it mean to differentiate with respect to r? Now, I&#x27;m sort of</p>
+<p>making fun of it. But you can actually pursue this further. What you need to do is not just differentiate with respect to r but impose all of</p>
+<p>those constraints that I talked about. And you can do that. It just gets messy. You have to impose that r transpose r is the identity.</p>
+<p>And you have to impose the determinant of r is plus 1. Now, that&#x27;s the hard one. OK, so let&#x27;s not do it that way. Let&#x27;s use our new fangled</p>
+<p>quaternion notation. So here, we have the dot product of two vectors. And we can express that here as the dot product of two quaternions with 0 scalar part.</p>
+<p>So we map this r li prime into a quaternion, r li prime. And we map this R r i prime into this quaternion. And all you&#x27;ve done is</p>
+<p>add the 0 scalar part. I&#x27;ve also flipped them around, because dot products commute-- so can do that. OK, and this is where I used that trick.</p>
+<p>Remember when I said that sometimes you want to move something from one side of a dot product to the other. Here, I&#x27;ve taken this quaternion, flipped it to the other side.</p>
+<p>But I had to conjugate it. Now, it&#x27;s already conjugated. So conjugate of the conjugate is the thing itself. So I get this expression.</p>
+<p>And then I make use of the property that I can write this quaternion product as a matrix times vector. And I can write this as a matrix times vector.</p>
+<p>So I get that. And then I make use of the fact that a dot product is just the left thing transpose multiplied by the right thing. And then finally, I</p>
+<p>can pull out the q. So this is important. I can separate out the q on both sides. So it doesn&#x27;t vary with i.</p>
+<p>And so I end up with this product. So this is where all my data is. All my measurements are buried in here.</p>
+<p>This is a 4 by 4 matrix that I get from my measurements. And now, all I want to do is make this thing as large as possible-- well, not quite, because I can make this as large as I like by making q large, right? So I have to be careful</p>
+<p>to impose that constraint. And so quaternions are not a redundant representation, because they have four numbers. And you have to impose this extra constraint.</p>
+<p>OK, and then there are different ways of doing this. So first of all, let&#x27;s see. What is N? Well, N is, again, got from the data.</p>
+<p>And there are two ways to do this. If you know about Lagrange multipliers, you can add another term that imposes the constraint.</p>
+<p>So the constraint is that q dot q equals 1, or minus 1 minus q dot q equals 0. So you can impose that way. And we&#x27;ll do it another</p>
+<p>way that doesn&#x27;t involve needing to know about Lagrange multipliers. Anyway, in either method, we can now differentiate with respect to q, which is amazing. We can differentiate</p>
+<p>with respect to rotation. Of course, in the case of translation, no one&#x27;s surprised you can differentiate with respect to translation or position. But for rotation,</p>
+<p>that&#x27;s quite something. If we do, we get this. And this is just using the ordinary rules for differentiation of a dot product and differentiation of a matrix times a</p>
+<p>vector, which by the way, are in the appendix of the book, which by the way, is on Stellar. So if you need to refresh your memory about differentiating with respect to a vector, it&#x27;s all there.</p>
+<p>And so what does this say? Well, this says that Nq equals lambda q. Well, that should remind you of stuff we&#x27;ve done before, right? It&#x27;s an eigenvector. So q has to be an eigenvector,</p>
+<p>and lambda is the eigenvalue. And since we want to make this as large as possible, we pick the eigenvector that corresponds to the largest eigen-- which is sort of unusual.</p>
+<p>In the past, we&#x27;ve always wanted to minimize something. We wanted the smallest eigenvalue here because of that sign flip. We want the largest one.</p>
+<p>And what is it the eigenvector of? It&#x27;s a 4 by 4 real symmetric matrix, which is constructed from the data. And so a couple of notes on that-- so one of them is we said for 2 by-- for</p>
+<p>a 2 by 2 matrix, we actually explicitly gave the eigenvalues and eigenvectors, because we know how to solve quadratics. And I mentioned last time that for 3 by 3, it can be done, because the</p>
+<p>characteristic equation is a cubic polynomial in lambda. And someone knows how to solve cubics in closed form. By the way, this used to be a big game, particularly amongst the Italian</p>
+<p>mathematicians. They would-- these problems were a real puzzle to them. And they were very proud when they solved them correctly so.</p>
+<p>But there wasn&#x27;t the same sort of modern publication and tenure and whatever. It&#x27;s like you&#x27;ve solved this tough problem. And you&#x27;re very proud of it.</p>
+<p>What do you do with it? You don&#x27;t want to just give it away. And yet, you want to be able to say later, you know, I got that 10 years ago. So they&#x27;ve come up with</p>
+<p>all these weird ways of coding and coding their solution and like in a story or as a sort of parable or some sort of other mathematics. And then later on, Ferrari, who was one of the guys</p>
+<p>who did this, could say that, oh, I solved this years before Cardano, who is another guy, because look at that poem I wrote. It tells you how to do this. So anyway, they discovered</p>
+<p>how to solve cubics. Here, we&#x27;re going to have a quartic, right, because it&#x27;s 4 by 4. It&#x27;s going to be fourth order. And guess what.</p>
+<p>They have closed-from solutions. And those Italian mathematicians and others figured out how to do it. Basically, how do you do any of these things? Well, the usual trick--</p>
+<p>you try and find a way of reducing third order to second order, because you know how to do second order. And quartics-- first step is reduce it to a cubic.</p>
+<p>Solve the cubic, and then the rest is easy. And so can you solve fifth order? No, OK, so it&#x27;s good that some of you know that that&#x27;s it.</p>
+<p>You can&#x27;t-- now, of course today with computers, we can always numerically solve any of these. But if you want to have a, quote, closed-form solution, then you do need to know that</p>
+<p>you can solve 1, 2, 3, 4. But that&#x27;s it. Then higher order, you can&#x27;t solve in closed-form using addition, subtraction, multiplication, and square roots.</p>
+<p>OK, so this matrix down here-- it look-- is more familiar to you than N. That&#x27;s because this is simply the dyadic product of the vector in the left coordinate system and the vector in the</p>
+<p>right coordinate system. So this is a 3 by 3-- each of these is a 3 by 3 matrix that&#x27;s a dyadic product. And you just keep on going,</p>
+<p>stepping through your point pairs and adding them up. And you get a 3 by 3 matrix, which is not symmetric. And so it has nine independent quantities.</p>
+<p>And let&#x27;s think about N. Well, N is 4 by 4. So it has 16. So how does that work? It turns out that N</p>
+<p>is rather special. It turns out N is symmetric. And it turns out that it&#x27;s not that easy to prove. The one mistake</p>
+<p>in this paper was that I think I said something like, it&#x27;s obvious that it&#x27;s symmetric. But it takes-- anyway, it&#x27;s symmetric.</p>
+<p>So that means 4 by 4 symmetric-- we&#x27;ve got 4 on the diagonal, and then we have 6 more-- no, 10-- we have 10 independent-- so it&#x27;s not 16. But it&#x27;s 10. But it&#x27;s still too many,</p>
+<p>right, because we only have 9 in M. Well, it turns out that this matrix is very special, because the determinant-- the characteristic equation up here has this important property,</p>
+<p>that that cubic term is 0, which actually makes it easier to reduce it to a cubic. And so N is a symmetric 4 by 4 matrix with a trace of 0. So that means we&#x27;ve</p>
+<p>got 10 minus 1 is 9. So now, it matches. M has 9 independent values. OK, we don&#x27;t need to really know-- and if you&#x27;re actually</p>
+<p>going to implement this, you might want to know this, but just do know that you can compute all the coefficients of the characteristic equation. And then you go off and solve your quartic.</p>
+<p>So the main application is going to be absolute orientation, but it also has lots of other applications that we already talked about. And if you go over to Draper Lab, where they do all this</p>
+<p>spacecraft control, you&#x27;ll find people, who know about quaternions, because that&#x27;s what&#x27;s used there. Desirable properties-- so we have this table.</p>
+<p>Let&#x27;s see how we&#x27;re doing. Ability to rotate vectors-- yes, we-- qr q conjugate. Ability to compose rotations-- yes, p times q is the composition. Intuitive, nonredundant</p>
+<p>representation-- well it&#x27;s almost nonredundant. It has four numbers to represent 3 degrees of freedom. And but the redundancy is very simple.</p>
+<p>It&#x27;s just the unit vector-- unit quaternion. Is it intuitive? Ah, one part-- the vector part is in the direction of the axis. That&#x27;s sort of intuitive.</p>
+<p>Computational efficiency-- we haven&#x27;t talked about that yet. How is it compared with matrix operations? Can we do things like interpolate orientations? Yes, suppose that you have-- your artist has the</p>
+<p>ballerina doing a turn and got it-- got her in this position and then in that position rotate it, how do you do all the inbetweening? Do you take the initial rotation matrix and the final rotation matrix-- take some sort of weighted average? Well, that&#x27;s not going</p>
+<p>to be orthonormal. So here, it&#x27;s trivial, right? You just take that angle. Suppose that the rotation is about an axis through an angle of 90 degrees. You just split it up into</p>
+<p>however many frames you need and compute the quaternion correspondingly. We can take averages of a range of rotations. If you want to know the average</p>
+<p>loading on the seat belt as your car is tumbling in all possible orientations, you can easily do that. And we can take the derivative as we saw. So we can do optimizations,</p>
+<p>least squares. If there&#x27;s no closed-form solution, we at least have a way of sampling that space of possibilities in the uniform or random way.</p>
+<p>Oh, OK, well, let&#x27;s see. How late is it? Well, let&#x27;s do a couple more things. OK, so this is where we&#x27;re going to go after absolute orientation.</p>
+<p>This is relative orientation. And this is kind of more-- so absolute orientation is very important for photogrammetry, making topographic maps from aerial photographs. But in terms of</p>
+<p>understanding human vision, one of a dozen depth cues is binocular stereo. And so relative orientation there is more important. And so that&#x27;s the problem</p>
+<p>of, we&#x27;ve got two eyes. And the eyes don&#x27;t get depth. They only get directions. So we have the directions in each of those coordinate systems to</p>
+<p>points out in the world. And I show in 5. And it turns out 5 is the minimum number you need to solve this problem. And your problem is to find</p>
+<p>out what that baseline is and what the relative orientation of this coordinate system is relative to that. In other words, we have a translation.</p>
+<p>And we&#x27;re going to have a rotation. So in that respect, it&#x27;s the same problem. It&#x27;s just that our data</p>
+<p>now is not as good. But-- in absolute orientation, we actually know 3D coordinates of all of these points. And that makes it possible to</p>
+<p>get a closed-form solution. Here, we only know the directions. So that&#x27;s the problem we&#x27;re going to solve after absolute orientation.</p>
+<p>Then if you&#x27;re trying to describe the kinematics of a robot manipulator, well, these days people are lazy. You just buy it.</p>
+<p>And the software does all that for you. But in the old days, we had to walk in the snow. There was no bus.</p>
+<p>Well, in the old days, you actually had to understand the geometry of these devices. And that means that as you go through each link, you are doing a</p>
+<p>translation and a rotation. And so if you want to avoid problems with coordinate systems lining up, particularly in the wrist, then quaternions are a good way to represent the rotation.</p>
+<p>So in the wrist, for example, you can imagine that if this part now comes up, there will be a time, where this axis in here is parallel to that axis. And you&#x27;ve lost a</p>
+<p>degree of freedom. So computational issues-- now, I guess these days computers are pretty fast. So we don&#x27;t worry about this as much.</p>
+<p>But if you have to do this for every point in some object in your graphics representation, this could be an issue. So let&#x27;s see how expensive it is.</p>
+<p>So again, there are two things we want to do-- compose rotations and rotate vectors. So for composition, we know it&#x27;s just multiplying two quaternions.</p>
+<p>And if you do it the naive way, just following that formula, you get 16 multiplies and 12 adds. And if you do it with an orthonormal matrix, of course, it&#x27;s a 3 by 3 matrix</p>
+<p>product, which is 27 multipliers and 18 adds. So we win-- definitely win here. Let&#x27;s go to rotating a vector. So we use this formula. And we can expand</p>
+<p>out the part we want, which is the vector part-- 22 multipliers, 16 adds. Compare the matrix-- oops, 9 multiplies and 6 adds. So here, we lose. But this can be rewritten</p>
+<p>in this form, which has the advantage that you compute the qr once, and you use it in two different places. And you get it down to 15 multipliers and 12 adds.</p>
+<p>And this is naive stuff. People that get serious about this go further. For example, with a 3 by 3 matrix, they don&#x27;t represent</p>
+<p>it as 3 by 3 matrix. At most, you take the first two rows, because the other one&#x27;s implicit. It&#x27;s a cross product. And so both-- so you could have</p>
+<p>a competition, where you just keep on going on both sides. And they end up being similar, but with the advantage for composition going to quaternions and the advantage for rotating vectors going to orthonormal.</p>
+<p>OK, how about renormalizing? So one of the things that happens-- suppose you have a graphic program that&#x27;s trying to do some motion sequence. And you&#x27;re composing small incremental rotations.</p>
+<p>And if you represent them, let&#x27;s say, as orthonormal matrices, you can imagine that because of the limitations of floating point arithmetic, that errors will accumulate. And after a while,</p>
+<p>your 3 by 3 matrix is no longer orthonormal. And so you&#x27;d want to sort of square it up. And that can be done. But it requires doing this.</p>
+<p>You take your matrix, and you multiply-- you take its transpose, multiply by M. And you take the inverse of the square root of the matrix.</p>
+<p>So right there I&#x27;d imagine that you may not know how to do that. But it can be done. But that just suggests that this is not an operation that you&#x27;d normally want to do.</p>
+<p>It&#x27;s expensive. With quaternions, sure enough, you take the unit quaternion, and you multiply it by another unit quaternion and so on. And because of the limitations</p>
+<p>of floating point arithmetic, after a while it isn&#x27;t a unit quaternion. How do you square it up? Well, trivial-- so this is one other small difference between them. So just about at the end-- so we talked about the space</p>
+<p>of rotation being the 3 sphere, unit sphere in 4D with antipodal points identified. And it also happens to be identical to the projective space p3 although we don&#x27;t use that.</p>
+<p>And it&#x27;s not as handy. Then sampling regular and random-- so how do we sample this space? Well, in 3D, we can easily come up with a regular sampling of space or even the random sampling.</p>
+<p>But it&#x27;s not so obvious how to do it here. And one way is to find regular patterns. If we&#x27;re-- say we want to</p>
+<p>sample a sphere regularly. That&#x27;s not so easy either. Certainly, latitude and longitude is not going to do it. But one thing we can do is</p>
+<p>project a polyhedra onto it, because polyhedra are completely regular. So if we project, say, a icosahedron or a dodecaicosahedron, which is a soccer ball-- anyone here know about soccer-- then we end up with a pattern</p>
+<p>on the sphere that is regular. But there are only some special ones, like regular solids. There are only a few of them. Well, similarly here,</p>
+<p>except now, we&#x27;re in 4D, and the corresponding things are rotations rather than polyhedra. And so it turns out that if you look at the rotations of polyhedra, they will give you a nice, even</p>
+<p>sampling of that space and the rotation groups-- so the tetrahedron has 12 rotations that will align it with itself. The cube and the octahedron have 24. And the icosahedron and</p>
+<p>dodecahedron have 60. So these give you a perfectly uniform spaced sampling of that space. Unfortunately, that&#x27;s not a very fine sampling, right, because 60 in the</p>
+<p>four-dimensional space. So there are tricks to give you a finer sampling. But they all start with those simple ones.</p>
+<p>And just while I have the slides here, if you pick the coordinate systems right, you get very simple expressions for these rotation groups. So each of these is a rotation.</p>
+<p>This one, of course, is the identity rotation-- does nothing. This is the rotation about the x-axis by 180 degrees. And this is about</p>
+<p>the y-axis and so on. So this is the group for the tetrahedron. They provide a regular spaced sampling of that space.</p>
+<p>This is for the hexahedron and the octahedron. And then the prize is this one. This is the rotation group for the dodecahedron and an icosahedron, where</p>
+<p>these a, b, c, d&#x27;s are given by these expressions up there. These should look familiar. This only works if you line it up nicely with the coordinate system. Anyway, this would</p>
+<p>be a sampling. So you could try these 60 orientations for your search or your averaging. And then you can interpolate further.</p>
+<p>OK, well, we&#x27;ve run out of time. So that&#x27;s it for today.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

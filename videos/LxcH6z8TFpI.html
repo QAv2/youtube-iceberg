@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is a Data Lake? — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>What is a Data Lake?</h1>
+        <div class="meta">
+            <span>Channel: IBM Technology</span>
+            <span>Published: 2019-06-19</span>
+            <span>935 words</span>
+            <span>Source: manual_caption</span>
+        </div>
+        
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/LxcH6z8TFpI"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>Hi everyone, my name&#x27;s Adam Kocoloski with IBM Cloud and I&#x27;m here to talk to you today about data lakes - what they are, how you use one, and the kind of things you ought to be thinking about as you set one up to power your applications and create more intelligent experiences for users. So, data lakes exist because we&#x27;re all awash with data and we&#x27;ve got systems of record, we&#x27;ve got systems of engagement, we&#x27;ve got streaming data, we&#x27;ve got batch data internal, external data, and it&#x27;s really a combination of these different kinds of data sources that leads us to get powerful insights about what our users are doing, about the way the world is working around us, and leads us to develop more intelligent applications. Data lakes start by collecting all those different types of data sources through a common ingestion framework and that ingestion framework is something that typically wants to be able to support a diverse array of different types of data, and it wants to kind of standardize and centralize all that stuff into a common storage repository. That&#x27;s not always required, but typically you don&#x27;t want to be analyzing the source data directly, you want to be able to take a copy of it, so that you&#x27;ve got the flexibility to do the kind of things you need to do with that data. And speaking of that, the data typically doesn&#x27;t common a form where you can use it right out  of the box.</p>
+<p>There&#x27;s a lot of data cleansing and data preparation that&#x27;s required. There is often times the ability to, or the requirement to create new features, something we call feature extraction, combinations of different types of data that need to be pulled together in order to create the right sort of bits of information to analyze. And once you cleanse that data, prep the data, model the right kind of features for your analysis, then you get to the fun part - which is actually going in and doing the machine learning model training and doing your advanced analytics.</p>
+<p>And each of these steps is typically creating new derived data sets that tie back to the original one. And that relationship is a really important thing to capture, because, let&#x27;s say, there was a problem with one of your data sources. You know there was a correction that needed to be made. You need to understand how that flows through the entire pipeline of more refined data sets and models that you&#x27;re producing, so that you can go back and correct it. And that&#x27;s what this governance stuff comes</p>
+<p>into play. This is something that&#x27;s really you know infused at every step of the journey. It means collecting meta data, you know data about your data, you know the right kinds of information about the tables in your data</p>
+<p>sets and how they relate to one another. It means being able to enforce policies so that as an organization we use the data the way it&#x27;s meant to be used, the way it&#x27;s intended to be used, the way it&#x27;s acceptable to be used to drive the business forward. That&#x27;s really something that can&#x27;t be bolted</p>
+<p>on after the fact that something has to be present throughout the entire life cycle. If we stop here, we haven&#x27;t really changed anything. It&#x27;s only by getting these insights that were producing in this data lake back out into the real world that were able to you know</p>
+<p>deliver on the business promise of these data lakes that that we&#x27;re all investing in and that&#x27;s where this apply step comes in. This can take a few different forms. You might be you know building simply dashboards That are helping business executives make smarter decisions about where to take the</p>
+<p>business forward with new projects to invest in. Or you might be building smarter applications that are able to make intelligent recommendations to the users of those apps based on you know historical purchased data. Increasingly we&#x27;re also seeing a lot of process</p>
+<p>automation where an intelligent model can smooth over some typically manual business processes and create a more intelligent experience and based on the sort of rich data driven understanding of the problem at hand. And really this whole process iterates back, right.</p>
+<p>Those more intelligent applications, they end up generating new data and the cycle continues. And so that in a nutshell at a very high level is what a day lake does. Some of you may have heard us talk about &quot;the</p>
+<p>ladder to AI&quot;, the &quot;AI ladder&quot;, and we talk about that - we talk about collecting data. We talk about organizing data. We talk about analyzing. And we talk about infusing. And really those four steps on this ladder</p>
+<p>are things that you can see represented throughout this data lake environment. Clearly over here we&#x27;re doing a lot of collection of these individual sources of data. This data preparation and feature extraction step into governed fashion is absolutely what we mean by the organizing of data.</p>
+<p>ML model training is a key example of data analysis. And we talk about infusing the insights from the data lake into the applications, that&#x27;s really this last step here. And so, there is very much a clear linkage</p>
+<p>between climbing this AI ladder and a data lake as a vehicle that can help you make that journey. Thanks for watching. If you have any questions or comments, please drop us a line below.</p>
+<p>If you enjoyed this content, please consider liking or subscribing thank you.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

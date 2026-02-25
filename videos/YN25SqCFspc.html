@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algo Trading Research Using Google Antigravity, Gemini 3, and Freqtrade — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Algo Trading Research Using Google Antigravity, Gemini 3, and Freqtrade</h1>
+        <div class="meta">
+            <span>Channel: Quant Tactics</span>
+            <span>Published: 2025-11-25</span>
+            <span>1,007 words</span>
+            <span>Source: auto_caption</span>
+        </div>
+        
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/YN25SqCFspc"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>Hey everyone, welcome back to the channel. Today we&#x27;re putting Google Anti-gravity and Gemini 3 to the test together with Freck Trade to see if they can actually handle Algo trading research for us. Instead of writing and tweaking code ourselves, we want to find out if the AI can generate, modify, back test a strategy automatically, doing all the research work on our behalf. Right now the individual plan is free and with it you get access to powerful agent models like Gemini 3 Pro, Claude Sunonnet 4.5 and GPOSS which offer impressive capabilities for algo trading research and development. So all you need to do is download and install Google Anti-gravity.</p>
+<p>Once the installation is complete, open the app and point it to your FC trade project folder. Anti-gravity will automatically recognize your project structure, including the strategies folder, making everything easy to navigate. If you&#x27;re new to Freck Trade and haven&#x27;t set it up yet, be sure to check out my previous video where I walk you through the full installation process step by step. Next, we start with a template file called base strategy. This will serve as the foundation for the AI to help us write a complete trading strategy.</p>
+<p>In Google Anti-gravity, there&#x27;s a conversation mode where you can choose between planning mode and fast mode. I found that fast mode works well for this task since writing a strategy isn&#x27;t too complex, and it&#x27;s much quicker. For the AI model, we&#x27;ll be testing Gemini 3 Pro to see how effectively it can handle the job. All we need to do is ask the AI, help me modify this to a golden cross strategy using base strategy. Then we simply drag and drop to point the AI to the base strategy file that we wanted to modify.</p>
+<p>Once we give the AI the instruction, it immediately starts analyzing and editing the strategy file for us automatically. You&#x27;ll see that it renames the class from base strategy to gold cross strategy. It adds the SMA 50 and SMA 200 indicators inside the populate indicators function. For the entry signal, it implements a buy rule when the SMA 50 crosses above the SMA 200, the classic golden cross. For the exit signal, it adds a sell rule when the SMA 50 crosses back below the SMA 200, which is called the death cross.</p>
+<p>After reviewing the changes, we can accept the AI&#x27;s modifications. The strategy is now ready to be tested. To back test the strategy, simply run the f trade back testing command in your terminal. And as you can see, the strategy is fully functional. From the back test results, we got 28 trades with around 12.88% total profit and about 25.48% draw down.</p>
+<p>Now that the basic golden cross version is working, we can start pushing it further. The next step is to ask the AI to modify the strategy so it avoids ranging markets. All we have to do is tell Gemini exactly what we want. For example, help me modify to avoid ranging market. It will analyze our existing logic and automatically apply the modifications.</p>
+<p>We can see that the AI added an ADX indicator to help the strategy avoid ranging markets. It also introduced a new parameter called ADX mean which can be optimized between 20 and 40 with a default value of 25. This parameter represents the minimum trend strength required before entering a trade. Inside the populate indicators function, the AI adds the ADX calculation. And in the entry logic, it adds a condition that ADX must be above the ADX mind threshold.</p>
+<p>So now the strategy will only enter a golden cross trade if the trend strength is strong enough, helping filter out flat or sideways market conditions. Once we review and accept the changes, we can run another back test to see how the modification affects performance. From the new back test results, we can see the impact of adding the ADX filter. The total number of trades dropped from 28 down to 16 trades, which makes sense because the strategy is now more selective and avoids ranging markets. The overall profit dipped slightly to around 10.23%.</p>
+<p>But the important part is that the draw down improves significantly dropping from about 25% down to 18.11%. So even though we&#x27;re taking fewer trades, the strategy becomes more stable and less risky. And now we know that anti-gravity is fully capable of writing strategies for us directly. We don&#x27;t need to copy and paste code. We don&#x27;t need to manually rewrite functions.</p>
+<p>It just edits the file for us. It&#x27;s extremely convenient. So, next we&#x27;re going to test something even more interesting. Can anti-gravity run the back test for us and read the results automatically? So, we don&#x27;t even have to touch the terminal. Let&#x27;s try it out.</p>
+<p>We simply ask anti-gravity. Help me back test and read the strategy using this command. Here, the - flag is important. It runs the container in detached mode. This way, anti-gravity can wait for the process to finish and then read the back testing results directly from the log output instead of getting stuck on a live running command.</p>
+<p>After running the command, we can see that anti-gravity actually back tests the strategy and reads the results for us, then summarizes everything automatically. With this functionality, using Gemini 3 and anti-gravity, we can instantly explore new trading ideas and run research dynamically. We can test different indicator combinations and read the results for us to see whether the performance actually improves. This opens the door to a completely new workflow where the AI becomes your research assistant. So now I&#x27;m curious, what other ideas do you have in mind? Let&#x27;s talk in the comments below.</p>
+<p>And as always, if you enjoyed this video and want to see more content like this, let me know by giving this video a thumbs up and subscribing to the channel. Thanks for watching and I&#x27;ll see you in the next one.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

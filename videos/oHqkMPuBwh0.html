@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multivectors in Cl(2) | Geometric algebra episode 3 — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Multivectors in Cl(2) | Geometric algebra episode 3</h1>
+        <div class="meta">
+            <span>Channel: All Angles</span>
+            <span>Published: 2026-01-07</span>
+            <span>2,126 words</span>
+            <span>Source: auto_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/oHqkMPuBwh0"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>Today we lay out the full two-dimensional geometric algebra, at least the simplest kind. It&#x27;s called CL2, which is short for the Clifford algebra on two dimensions. We will see that it&#x27;s actually four-dimensional. And we will calculate the geometric product for more general kinds of objects, not merely for vectors. But first, a quick recap.</p>
+<p>This video is part of a longer series on geometric algebra. So far we have defined a new product called the geometric product. We specifically want to use it to calculate inverse vectors. From the required properties of this new product, we derived a formula that consists of two parts. The product of two vectors is their dotproduct plus their wedge product, which means that it&#x27;s a real number plus a by vector.</p>
+<p>The first part is commutative or symmetric, but the second part is anti-commutative or anti-ymmetric. Since this formula forces us to add objects of different types together, we should first figure out how many different types of objects there are. In this video, we start from a two-dimensional vector space with basis vectors E1 and E2. We will construct a few additional objects. In fact, we&#x27;re going to build a basis for CL2.</p>
+<p>You will see that there are four basis objects. The best tool for organizing all of them is the wedge product. When you wedge zero vectors together, you just get a scaler. You can think of the number one as the basis scaler, the unit for all real numbers. After all, the other reals are just scalar multiples of one.</p>
+<p>Since we think of them as a wedge product of no vectors at all, we say that the scalers have a grade of zero. Then of course we can also make a wedge product of only one basis vector. This just gives us that basis vector itself. We have two of them. So this adds two more basis objects into our bag.</p>
+<p>They both have a grade of one because they can be seen as a wedge product that contains a single vector. Finally, we can also wedge both of our basis vectors together. This gives us a small piece of the 2D plane called a by vector. The word by already suggests that this is two vectors wedged together. So this object has a grade of two.</p>
+<p>There&#x27;s only a single basis B vector. I draw it as a little square here, but it doesn&#x27;t really have a fixed shape. It is characterized by the plane it lives in and by its size. The size of the basis B vector is the area of the square, which is one. At this point, we could try to wedge three vectors together, but we only have two basis vectors.</p>
+<p>available. So any third vector will inevitably be a linear combination of E1 and E2. And look what happens next. When we distribute the linear combination, we get wedges that contain duplicate vectors and those are always zero. That&#x27;s because a vector wedged with itself gives us a flattened piece of plane with an area of zero.</p>
+<p>What this means is that in a 2D vector space, we simply cannot create wedges of three or more vectors. And that means we&#x27;re done. Summing up, we have one basis scaler, two basis vectors, and one basis B vector for a total of four different parts we can add together. This is why a two-dimensional vector space has a fourdimensional geometric algebra or Clifford algebra built on top of it. It has four basis objects.</p>
+<p>And in a moment we will see how you can compose all other objects in our algebra as linear combinations of these four. Whenever an object can be constructed by wedging a number of vectors together, it is called a blade. I guess the name refers to the shape of a small parallelogram which kind of looks like a sharp arrow tip or a knife blade. So what we have listed here are the four basis blades and their grades. Let it be known that mathematicians do have a talent for poetry.</p>
+<p>The numbers in blue actually come from the Pascal triangle. Think about it. For each blade, you have to decide how many of the basis vectors you&#x27;re going to wedge together. So, you have to choose K out of the n available basis vectors. That&#x27;s n choose k where k is the grade.</p>
+<p>Later in 3D, we will have one basis scaler, three basis vectors, three basis by vectors, and a single tri vector. Adding this all up, we will have eight basis objects in total. You may be aware that the numbers in a given row of the Pascal triangle always add up to a power of two. So in general, when we start from an n-dimensional vector space, we will get a 2 to the n dimensional Clifford algebra containing basis blades of grades 0 1 2 and so on up to and including n itself. Another thing that you can see in the triangle is that the first and final numbers on each row are always going to be one.</p>
+<p>The first one tells us that there&#x27;s only a single basis scaler. All other real numbers are just multiples of it. The final one tells us that there&#x27;s only a single basis blade of the highest possible grade. That&#x27;s the one where you wedge all of the basis vectors together. So in 2D all by vectors are just scalar multiples of the single basis B vector E1 wedge E2.</p>
+<p>Another way to put this is that the space of B vectors is itself one-dimensional. That means that it&#x27;s isomorphic to the scalers. And for this reason the highest grade blades are often called pseudocalers. we will see that pseudo scalers play a very important role in geometric algebra. Oh, one more thing.</p>
+<p>Since our basis vectors e1 and e2 are orthogonal to each other, their dotproduct is zero and so their geometric product is identical to their wedge product. This allows us to write the basis by vector without the wedge symbol. So just E1 E2 instead of E1 wedge E2. It&#x27;s the same thing, but it&#x27;s easier to write it as a geometric product than as an explicit wedge product. All right.</p>
+<p>Now that we have all of the possible basis blades, we can make arbitrary linear combinations of them. These are called multiff vectors. The most general multiffacctor in our four-dimensional algebra is of course a linear combination of the four basis blades. We scale each of them by a scalar factor and then we add everything up just like we always do when taking linear combinations. At this point, it may be useful to spend some time getting used to the two different levels of vector spaces that we are playing with here.</p>
+<p>We started from an ordinary two-dimensional vector space with E1 and E2 as its basis vectors. But now we are operating in a four-dimensional space where the scalers and the B vectors are also treated as vectors. They aren&#x27;t vectors in the original perspective, but they are in the new one because we&#x27;re using them as a 4D basis for the Clifford algebra. This can be confusing and that&#x27;s why in practice everyone will typically reserve the word vector only for the objects coming from the original 2D space. They turn into the elements of grade one in our new bigger space.</p>
+<p>For all the other objects we will instead use words like bvector, triector, scalar, pseudoscaler and multi vector to avoid confusion. Now have another look at the formula for the geometric product. We derived it in the previous video. As you can see, its real part is the dotproduct of the vectors u and v. So that&#x27;s the first coefficient in the multi vector.</p>
+<p>The two vector parts are both zero. That&#x27;s because the geometric product of two vectors doesn&#x27;t actually contain any vector parts, which is quite interesting. Finally, the bctor part is this coefficient. So when we multiply two vectors, two blades of grade one, we get a sum of two blades that have grade zero and grade two. The dot product lowers the grade and the wedge product increases it.</p>
+<p>Maybe this reminds you of how the tensor product produces bigger things and the inner product produces smaller things. I mentioned this in the series on tensor algebra. We have a very similar thing going on here. The final thing we have to do is figure out how to multiply two arbitrary multiffactors. The algebra is actually really easy.</p>
+<p>We write each multiff vector as a linear combination of all the basis blades. The geometric product is linear. Remember this means that we can easily distribute one sum over the other. The result is a huge sum with 16 terms, one for each of the combinations of the coefficients. As always in linear algebra, you see that everything can be defined in terms of the two basis vectors.</p>
+<p>We already know exactly how those basis vectors behave under the geometric product. The square of any basis vector equals the real number one. So these terms all simplify to real numbers. Next, remember that the geometric product between orthogonal vectors is anti-ymmetric. Our two basis vectors E1 and E2 are orthogonal.</p>
+<p>So you can swap the order of two different basis vectors provided that you flip the sign. We do that everywhere and this creates some new opportunities to turn the square of a basis vector into the number one. Finally, we group like terms together and we get a new multiffactor with four components. This is the final answer, the most general formula for the product of two multiv vectors in our algebra. So, you see, it&#x27;s actually really easy.</p>
+<p>You only need to know three things. Sums can be distributed over each other. The square of a basis vector is one. And the product between two different basis vectors anti-commutes. And that&#x27;s all there is to it.</p>
+<p>Thanks to linearity, we only have to know what happens to the basis vectors. Everything else is just simple algebraic manipulation. From this generalpurpose formula, we can now derive some more specific cases. For instance, if our two inputs are both pure vectors, their real and by vector parts are zero. That makes many of the 16 terms disappear.</p>
+<p>The end result is the same formula we derived in the previous video. You can now recognize this bit as the dot product and this bit as the wedge product. Try some more examples yourself. What happens when you multiply a vector with a bctor? Again, many of the terms will disappear. The result can often be written in terms of generalizations of the dotproduct and the wedge product, but we won&#x27;t do that here.</p>
+<p>I want to focus on products between pure vectors because those already give us all of the amazing results of geometric algebra and they are easier and more intuitive than the products between more exotic objects. But now at least you know how to calculate such products if you ever need to. At this point I have to give you the same warning that I&#x27;ve given a few times before. All of the numbers in these formulas depend on your choice of bases. If you switch from E1 and E2 to a different orthonormal basis, each of the coefficients is going to change.</p>
+<p>So yes, this kind of calculation is very easy, but it has a major limitation. It&#x27;s always basis dependent. We are working with coordinates. In the rest of the series, we will sometimes prefer to do calculations in a basis independent manner by directly manipulating the multiv vectors themselves. But in this video, I wanted to show you that you can always fall back to decomposing everything into linear combinations and then just applying very simple algebraic rules to obtain the answer.</p>
+<p>Here is one final example. I won&#x27;t give you the answer. You should really try this one yourself. I promise you that the result will be a big surprise. Calculate the square of the basis by vector.</p>
+<p>You don&#x27;t even need to distribute anything in this case. Just apply the two other rules and see what happens. We will dive into this surprising and hopefully familiar result in the next video. It will lay the foundation for a long exploration into the depths of geometric algebra. In fact, this little calculation will allow us to explain what the geometric product really is in purely geometric terms.</p>
+<p>If you can&#x27;t wait, you can already watch all of that on Patreon. Please like and subscribe and I will see you again soon.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

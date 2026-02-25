@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quaternion Basics — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Quaternion Basics</h1>
+        <div class="meta">
+            <span>Channel: We Always Learn</span>
+            <span>Published: 2020-06-04</span>
+            <span>792 words</span>
+            <span>Source: auto_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/oFvitTzR63k"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>hello everyone my name is Ahmed Al Attar and I&#x27;m a roboticist I&#x27;ll be presenting to you today about quaternions this presentation is brought to you by we always learn which is an American initiative that aims to spread knowledge throughout the world quaternions are an extension to the complex number system that we are used to they can be thought of as mathematical objects that lie on a four dimensional hyper sphere quaternions were discovered by the Irish mathematician Sir William Hamilton around 1843 he discovered this solution as he was walking through or over a broom bridge after his discovery he carved the basic rules of multiplication onto the bridge after which a plague was placed in honor of his discovery so what are quaternions used for they are used to represent rotations of object of rigid objects these properties representation does not suffer from gimbal lock which is known for oiler angles and requires far less computation versus using rotation matrices they also do not suffer from disconnect discontinuities that you would get every full rotation any quaternion can be written as a sum of a scalar value and a vector so a + bi + CJ + DK where ijk point in the XYZ directions they also hold this property I square equals J square equals K square which is equal to negative 1 so quaternions can be thought of a 4-tuple made up of 4 numbers addition and subtraction of to cut onions are done element twice so you add the first two scalars and then the corresponding vector values a scalar product of a quaternion is also element twice the multiplication of two quaternions is more tricky and is found as follows the conjugation of a catonian can be thought of leaving the scale apart as it is and conjugating the complex part so by taking the negative of the vector part if you have a catonian that represents some rotation the conjugate of that catonian can be thought as taking the other direction of the rotation so the inverse direction so if Q represents a rotation around the z axis by twenty degrees the conjugate of Q would represent a rotation around the z axis by negative twenty degrees the norm of the catonian can be found as the square root of the catonian multiplied by its conjugate or by taking the square root and the sum of the squares so if we have a norm of one that would be a unit quaternion the inverse of a catonian can be found as the comic the conjugate of the catonian divided by its norm in the case of a unit quaternion where the norm is equivalent to one the inverse of a catonian is simply the conjugate of the catonian now how do we use these quarter notes let&#x27;s say we have a rotation represented by a quaternion q and we have a vector V that we wish to rotate using Q if the vector is comprised of values XYZ we can write this vector as a quaternion with the scalar part being zero then we can sandwich this quaternion with the rotation that we want so q and q inverse on the other side multiplying these out would give us the rotated quaternion the scalar value would always be zero we can then extract out the values BCD which is the rotated vector if we had multiple successive rotations we can combine these quaternions by simply multiplying them here q prime would represent a rotation by Q 1 and then q to raising a catonian to the power n simply means having that rotation n times so if catonian Q represents a rotation of 20 degrees about the z-axis catonian Q to the power n represents a rotation around the z-axis 20 degrees times n degrees and finally if we wanted to interpolate between two quaternions Q 1 and Q 2 and find an intermediate quaternion between the two which are which is parameterized by the value T we can use this slurp so it&#x27;s spherical linear interpolation and by adjusting the value T you can get an intermediate cat owner or an interpolation between Q 1 and Q 2 if Q was if T was 0 you would simply get Q 1 and if T was 1 he would get Q 2 any value between 0 and 1 will give you a catonian in between the two if you found quaternions to be interesting then check out dual quaternions which are an extension to 8 dimensions so if you would like to watch a video about dual quaternions make sure to write that in the comments below thank you very much for watching</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

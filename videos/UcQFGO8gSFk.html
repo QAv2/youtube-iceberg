@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Rise and Fall of Quaternions: Why We Use i, j, and k in Vector Calculus | Deep Dive Maths — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>The Rise and Fall of Quaternions: Why We Use i, j, and k in Vector Calculus | Deep Dive Maths</h1>
+        <div class="meta">
+            <span>Channel: Jeffrey Chasnov</span>
+            <span>Published: 2022-05-25</span>
+            <span>2,522 words</span>
+            <span>Source: manual_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/UcQFGO8gSFk"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>You may have already learned about  the three Cartesian unit vectors i,   j and k that point in the x, y, and z directions. Maybe you just thought they were three random   consecutive letters in the alphabet, Like abc, or uvw.  Maybe you thought they were chosen  because they weren’t already being used.  Actually, the story is much more interesting </p>
+<p>than that! To learn why we use i,   j and k as the unit vectors, we need  to learn something about quaternions.  I’m Jeff Chasnov and I’m a  professor of mathematics.  In this video, I want to  introduce you to quaternions,  and tell you the story of how i, j and k  became the unit vectors of Vector Calculus.  To understand quaternions, we first </p>
+<p>need a short review about numbers.  Let’s start with the real numbers. Like 1, 2,  1/3, 1/4, sqrt(2), pi, and numbers like that.  We know that these numbers  satisfy the laws of arithmetic.  These are the commutative laws, a+b=b+a and ab=ba.  One law for addition, one law for multiplication.</p>
+<p>There are also two associative laws:  a + (b+c)=(a+b)+c for addition,  and a(bc)=(ab)c for multiplication.  It doesn’t matter which additions or  which multiplications you do first.  The third law is the distributive law, which  contains both multiplication and addition. We   can say a(b+c)=ab+ac.</p>
+<p>Or we can say (a+b)c=ac+bc. So either we can do the addition first and   then the multiplication. Or we can do the  multiplication first and then the addition.  When we define a set of numbers, we would  like them to satisfy the laws of arithmetic.   Or at least as many laws as possible.</p>
+<p>It’s not too hard to extend the real   numbers to the complex numbers. We write a complex number z=x+iy,   where x and y are real numbers, and i is  an imaginary number satisfying i^2=-1.  A complex number satisfies all the laws of  arithmetic, and contained in them are the   real numbers when the imaginary parts are zero. When you extend the real numbers to the complex   numbers, you do lose something.</p>
+<p>You lose the  ordering of the numbers. You can’t say one   complex number is smaller than another complex  number like you can for the real numbers.  Just like we can locate real numbers  on the real number line, we can locate   complex numbers in the complex plane.</p>
+<p>We take the x-axis as the real part   of the complex number and we take the y-axis  as the imaginary part of the complex number.  University students in STEM majors  all learn about the complex numbers   because they turn out to be so useful. In 1545, the Italian mathematician Cardano   began the study of complex numbers, but  it took about another three hundred years   before they became widely accepted.</p>
+<p>But enough about complex numbers.   What I really want to talk about  in this video are the quaternions.  A complex number z is a point  in a two-dimensional plane,  and in the 1800s, the Irish  mathematician, William Rowan Hamilton,   tried to extend the two-dimensional complex  numbers to three-dimensions.</p>
+<p>He wanted to   represent a point in three-dimensional space,  which is the physical space of our world.  Hamilton’s guiding principle was The Law of  the Moduli. Although The Law of the Moduli   is not much used anymore,  it’s pretty easy to explain.  The modulus of a real number </p>
+<p>is just its absolute value.   The absolute value of a number can be defined as  the positive square root of the number squared.  The Law of the Moduli for real numbers is that  the absolute value of a times b is equal to the   absolute value of a times the absolute value of b. What’s the modulus of a complex number?  If we place a complex number in the complex plane,  and draw a line from that number to the origin,   we can find the length of that </p>
+<p>line using the Pythagorean theorem.  The modulus of a complex number is just  the length of that line. The modulus of   x+iy is the positive square root of x^2+y^2. The Law of the Moduli is then the modulus of z   times w is equal to the modulus  of z times the modulus of w.  Now Hamilton wanted to extend the two-dimensional </p>
+<p>complex numbers to three dimensions,   since we live in a three dimensional world. So he tried to write something like t=a+bi+cj,   where j is another imaginary number with j^2=-1. Where Hamilton got stuck was how to define the   product i times j, and still have these  numbers satisfy the Law of the Moduli.  Hamilton mulled over this problem, how  to define three-dimensional numbers.  In a letter Hamilton sent to </p>
+<p>his son Archibald, he wrote:  “Every morning on my coming down to breakfast,  your brother William Edwin and yourself   used to ask me, “Well, Papa, can you multiply  triplets?” Whereto I was always obliged to reply,   with a sad shake of the head, ‘No,  I can only add and subtract them.’”  It was on the historic day in October 16, 1843  that Hamilton discovered the quaternion while  walking with his wife across the </p>
+<p>Broom Bridge in Dublin, Ireland.  Hamilton’s solution was to extend the  three-dimensional numbers to four dimensions.  Hamilton wrote the quaternion q=a+bi+cj+dk,  where i, j and k are all imaginary numbers   with i^2=j^2=k^2=-1. What Hamilton discovered was  that the proper product relationship was ijk=-1.  Now, there’s a plaque on the </p>
+<p>Broome bridge, which reads  “Here as he walked by on the 16th of October 1843  Sir William Rowan Hamilton in a flash of genius   discovered the fundamental formula for quaternion  multiplication i^2=j^2=k^2 = ijk = -1 &amp; cut   it on a stone of this bridge. Probably the most famous graffiti   in the history of mathematics! In 2012, the sand artist   Daniel Doyle created a beautiful sculpture of this </p>
+<p>historic event in the courtyard of Dublin Castle.  Using Hamilton’s equations, we can derive all  the different products of the imaginary numbers.  Let me show you on the whiteboard. We are going to start with   Hamilton’s equations. We’re going to  assume multiplication is associative   but we will not assume it is commutative.</p>
+<p>We start with ijk equals minus one. We don’t   need parenthesis because it is associative. To determine what ij is equal to,   we can multiply on the right by k. So we end up  with ijk times k.</p>
+<p>And we multiply minus one by k   and we end up with minus k. Then we can do k times  k first. So k squared is minus one. So this is i   times j times negative one equals minus k.</p>
+<p>Then  we can multiply both sides of this equation by   minus one to get ij equals k. And that’s the first  relationship between these imaginary numbers.   If we now want to figure what j times k is,  we can take ijk and multiply on the left by i,   so we’ll have an i times an i times a j times a </p>
+<p>k. We multiply minus one by i, we get minus i.   Now i squared is negative one   times j times k equals negative i. And multiply  both sides of this equation by negative one,   and we get jk equals i. And that’s the second </p>
+<p>of our product relations. We have ij we have jk,   we can do some more manipulations and get  ki, and what we’ll find is ki is equal to j.   These product laws are cyclical in the sense  that if we draw a circle, and put i here   and put j down here and put k down here.  If we multiply i times j we’ll get k.   If we multiply j times k we’ll get i. </p>
+<p>And if we multiply k times i we’ll get j.  Quaternion multiplication is associative, but  I can show you now that it’s not commutative.  We know that i times j equals k. We would like  to figure out what j times i is. So we can start   with this second relationship.</p>
+<p>So we can write it  as i equals j times k. And then we can multiply   on the left by j. And find j times i. So that’s </p>
+<p>equal to j times j times k. And we can do the j   times j, or j squared multiplication  first and that will give us negative k.   So what we have is i j equals k, and also j i  equals negative k. If we rewrite this, we have j i   equals negative i j.</p>
+<p>So we say that i and j  anticommute. When you commute the product you   introduce a negative sign. That’s true for all  of these imaginary numbers.</p>
+<p>They anticommute.  If you place i j k in a circle and  you multiply them going clockwise,   you get positive. If you multiply them  going counterclockwise, you get negative.  If you know Vector Calculus, this  might be starting to look familiar.  We usually print the three unit vectors in </p>
+<p>Cartesian coordinates, i j, and k, in bold face,   and the cross product satisfies i cross j equals k, j cross k equals   i, and k cross i equals j. These  unit vectors also anticommute.  These cross products look a lot  like quaternion multiplication,   and they even use the same three letters.</p>
+<p>This is not a coincidence!  In the late 1800’s, there was a major  scientific fight over the use of quaternions in   physics. Hamilton discovered the quaternions,  but the baton for its support was passed to  Peter Guthrie Tait, a famous  mathematician in his own right.   Arguing against the use of quaternions was the</p>
+<p>American physicist Josiah Willard Gibbs  and the Englishman Oliver Heaviside. James Clerk Maxwell, of the Maxwell equations,   was a close friend of Tait’s  during their college days.  And largely due to Tait, Maxwell made use  of quaternions in the second edition of   his Treatise on Electricity and Magnetism. The war of words between the quaternionists   and those supporting a simpler </p>
+<p>approach got quite heated.  In 1890, Tait wrote in the third edition of his  book, An Elementary treatise on Quaternions:  “It is disappointing to find how little progress  has recently been made with the development of   Quaternions. Even Professor Gibbs must be ranked  as one of the retarders of Quaternion progress,   in virtue of his</p>
+<p>pamphlet on Vector Analysis,   a sort of hermaphrodite monster,  compounded of the notations of Hamilton  and of Grassmann.” Grassman, at that time,   was a well-known German mathematician. Gibbs replied directly to Tait,   but we’ll get back to Gibbs comments in a moment. I’d rather start with the more aggressive reply   penned by Heaviside.</p>
+<p>A section of his book  on Electromagnetic Theory was provocatively   titled “Abstrusity of Quaternions and  Comparative Simplicity Gained by Ignoring Them”  And in his book, he included an article he had  written for The Electrician in 1891: “Clearly   then, the quaternionic is an undesirable way of  beginning the subject, and impedes the diffusion   of vectorial analysis in a way which is as </p>
+<p>vexatious and brain-wasting as it is unnecessary.”  Coming back to Gibbs, when he was asked what’s  the first duty of a physical vector analyst,   he replied in a letter to Nature: “It is to present the subject in such a   form as to be most easily acquired,  and most useful when acquired.”  How we now learn Vector Calculus follows the  1913 Vector Analysis textbook of Edwin Wilson,   based on the lectures of Gibbs.</p>
+<p>We can  find in this textbook the modern notation   and definition of the dot product, the cross  product, and the del differential operator.  Quaternions are nowhere to be found,  but historically, the dot product   and the cross product did come from  quaternions.</p>
+<p>Let me show you how.  We start with two quaternions whose real parts  are zero. These are called pure quaternions.  Let’s multiply these two pure quaternions.  First we compute the real part.   The real part comes from the direct  terms: i squared, j squared and k squared,   those give us a negative one.</p>
+<p>So we’ll have a  negative, and then we’ll have a ux vx plus a uy vy   plus a uz vz. Then the cross terms give us  the imaginary part. So to get the i part,   we need to multiply j times k.</p>
+<p>So we  have a j times k here, so plus a uy vz.   And then a k times j gives us a  negative i so we’ll have a minus uz vy.   And that’s i. To get the j term, we need to  multiply k times i, so we’ll have a uz vx.   And then i times k will give us negative j so </p>
+<p>that will be minus ux vz. And that will be the j   term. Finally, to get the k term, we multiply  i times j gives us k. So that will be ux vy.   And then j times i gives us negative k, </p>
+<p>and that will be minus uy vx. And that’s k.  This result may look familiar for  those who have learned vector calculus.  Using modern vector notation, we would write, u equals ux i plus uy j plus uz k; and v equals   vx i plus vy j plus vz k. i, j and k are the </p>
+<p>unit vectors in the x, y and z directions.  Remember all the relationships satisfied by the  vector cross products of the three unit vectors.  The scalar dot product and the vector cross  product in the Wilson and Gibbs notation are  u dot v equals ux vx plus uy vy + uz vz. And u cross v equals uy vz – uz vy times   i plus uz vx minus ux vy times j plus  ux times vy minus uy times vx times k.  So we can write the product </p>
+<p>of two pure quaternions as  the negative of u dot v plus u cross v in  the x direction times i, plus u cross v   in the y direction times j, plus u  cross v in the z direction times k  The negative of the dot product of our two  vectors then corresponds to the real part   of the quaternion product and the cross product of  our two vectors corresponds to the imaginary part.  So the multiplication of two pure quaternions </p>
+<p>results in both the scalar dot product   and the vector cross product. Gibbs and Heaviside were in favor   of dumping quaternions and just using the  dot product and the cross product directly.   And that is what physicists eventually did. Vector calculus won the vector algebra wars,   and quaternions have been sidelined  from physics ever since.</p>
+<p>If you even   ask a physics student what a quaternion is, it’s  likely you’re just going to get a blank stare.  It’s only recently that quaternions have  made a comeback in computer graphics,   because they can be used efficiently  to rotate objects in three dimensions.  So the next time you use I, j and k as your three  unit vectors, give a kind thought to quaternions   and their imaginary numbers.</p>
+<p>And although now i  dot i and j dot j and k dot k , j.j and k.k are   equal to plus one, remember that i^2 and  j^2 and k^2 used to be equal to minus one.  I’m Jeff Chasnov! Thanks for watching!</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

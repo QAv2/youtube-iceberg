@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUATERNIONS Explained VISUALLY in 381 Seconds — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>QUATERNIONS Explained VISUALLY in 381 Seconds</h1>
+        <div class="meta">
+            <span>Channel: Raycastly</span>
+            <span>Published: 2024-03-22</span>
+            <span>1,096 words</span>
+            <span>Source: auto_caption</span>
+        </div>
+        <div class="tag-pills"><a href="../categories/advanced-mathematics-geometric-physics.html" class="tag-pill">Advanced Mathematics &amp; Geometric Physics</a></div>
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/MpyGVvC-13s"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>by the end of this video you&#x27;ll be a querian expert in unity no math required if you&#x27;re a game developer then you&#x27;ll probably like my free asset packs you can grab them in the description below for free first you need to understand the difference between an orientation and a rotation orientation is the direction the object is facing it&#x27;s where its local forward axis is looking at rotation is the act of changing the object&#x27;s orientation now that we&#x27;ve got that out of the way in unity there are two ways to represent orientation in 3D space UL angles and Quan UL angles are pretty easy to grasp and you&#x27;re probably already familiar with them the idea behind UL angles is to break down the orientation of our object into three axes X Y and Z by combining these individual rotations we can obtain every orientation we could ever desire but there are two main issues with this approach the first issue arises in the order that we apply the rotations here I have two cameras the left camera uses XYZ order the right camera uses zyx order I&#x27;m going to apply a 90 45 30° rotation to both of them and you can see that we get two different orientations so order matters the second issue is called gimbal lock best Illustrated with an example as you can see here each one of the axes is represented with a disc blue red and green the blue disc rotates around this axis the red disc rotates around this axis and the green one around this axis the issue Q occurs when we take the red axis and we rotate at 90° in this way and as you can see the blue disc and the green dis are now on the same plane which means we just lost one degree of rotation this is where querian come into play they solve all of these issues querian are represented by four values usually labeled as x y z and W note that XYZ do not represent the axes you can think of each letter as representing an orientation in the example you can visualize each of the orientations by changing the value of one of these you are essentially changing the weight of that orientation or its percentage of influence so what we&#x27;re essentially doing is we&#x27;re combining these four orientations to get all of the other possible combinations as you can see in this example I&#x27;m combining the first two orientations to get this new rotation which is exactly in the middle because I&#x27;m using 50% of the first and 50% of the second that&#x27;s enough Theory let&#x27;s move on to practical examples there are a few functions that you will use 99% of time while working with querian so let&#x27;s cover them one by one quitan DOL rotation is used to make an object look at something while maintaining its orientation in this example the yellow arrow is looking in the direction of the purple Arrow but it&#x27;s maintaining its own orientation based on the global upwards Direction so if you take a look at the rods you will notice that they they are not synchronized but they are looking in the same direction because the yellow arrows Green Arrow is always pointing upwards think how your head is always oriented upright while watching TV it doesn&#x27;t just flip upside down to look at TV this can be used for cameras following objects like in this example where I&#x27;m just calculating the vector from the camera towards the car with regards to the global up Direction and then orienting the camera in that direction it&#x27;s also commonly used to make the head of a character track the player during a dialogue for example drum to rotation is similar to look rotation but it only specifies the direction that the object is pointing think of it as being asked to point a laser in some direction you will do so without really thinking about the way your wrist is rotated you will simply do it as is most convenient for you in this example I&#x27;m using from to rotation to orient the markers up direction from the World up direction to the surface normal angle axis is probably the easiest one to grasp it takes two parameters angle and axis to visualize the axis just imagine stabbing your object with a knife this will give you the axis of rotation the angle is just the amount of rotation that you want to occur on that axis that&#x27;s it we use rotate towards when we want to smoothly rotate from one orientation to another you supply it with with the original rotation the target rotation and the step which is essentially the maximum amount I can move this frame in this example I&#x27;m just applying it to the arrows and then I&#x27;m also using it for the camera tracking so I&#x27;m just storing the target orientation and then I&#x27;m rotating towards that orientation from my current orientation at the given speed whenever you have two orientations and you want to create a new orientation that is a percentage of the two you would use quern Slurp in this simple example I have a reference to the two arrows I&#x27;ve exposed the interpolation variable and clamp it between 0 and one and then I simply interpolate between the two orientations in update you can use quitan do inverse to get the inverse orientation as you can see in this example I&#x27;m just getting the inverse orientation of this Arrow another useful method is querian doer you can use it to convert uler angle into querian you just Supply it with a normal uler and it will spit out a corresponding quiteria I will use this a lot in the following example when you multiply two querian together you&#x27;re visually adding the two orientation as you can see here I&#x27;m taking the orientation of the arrow and I&#x27;m multiplying it with the quitan that I&#x27;m creating with querian doer to make it rotate on the local y AIS by 15° you can also use a querian to rotate a vector by multiplying equitan with Vector in that order in this simple example I&#x27;m calculating the vector from the Sun to the little blue planet and I&#x27;m rotating that Vector around the Y AIS by 15° every time I press space and then I set the position of the blue planet to the Sun position plus that relative offset</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>

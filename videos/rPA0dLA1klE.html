@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meow Apps Database Cleaner — Iceberg Archive</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <nav><a href="../index.html">&larr; Back to index</a></nav>
+
+    <article>
+        <h1>Meow Apps Database Cleaner</h1>
+        <div class="meta">
+            <span>Channel: David McCan</span>
+            <span>Published: 2026-02-20</span>
+            <span>2,804 words</span>
+            <span>Source: manual_caption</span>
+        </div>
+        
+
+        <div class="embed">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/rPA0dLA1klE"
+                frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="transcript">
+            <h2>Transcript</h2>
+            <p>Hi, this is David McCan for WebTNG. In this video I&#x27;m taking a look at a free plugin called Database Cleaner. It&#x27;s by Jordy Meow. It&#x27;s one of the Meow apps. I&#x27;ve tried this out the other day.</p>
+<p>I was really impressed with it and I wanted to share about it. What I&#x27;m going to do is give you some overview information about the plugin, the free and the pro versions. Then we&#x27;ll do a walkthrough and then we&#x27;ll have some discussion at the end. So this is the page in the WordPress plugin directory. You can see it&#x27;s got more than 10,000 active installs.</p>
+<p>It&#x27;s got 145 five-star reviews, good reviews. It has a list of features here but we&#x27;re going to see these on the website and when we do our walkthrough. Here&#x27;s the page on the website for Database Cleaner. If we look at the comparison, you see that in the free version you can do cleaning, you can manage tables, you can optimize, you can do post type cleanup. We&#x27;ll see this in action.</p>
+<p>The pro version adds enhanced plugin insights, background sweeping, and advanced analysis. Okay, so there are a few features in the pro version that aren&#x27;t in the free version. If we look at the pricing here, the one site annual, five site annual, 20 site annual, five site lifetime, 20 site lifetime, 500 site lifetime, and 2,500 site lifetime. So this is the package that I bought. I mainly do maintenance a few times a year.</p>
+<p>As we&#x27;ll see, the automation might be worthwhile for a large busy site. So I wanted to have the lifetime for a couple of sites where I might use it. I was curious though if you buy the lifetime, the pro version, can you move it to another site after you optimize or clean that site? So I asked Nyao, the assistant here, I said, &quot;Hi, if I buy the lifetime license, can I remove the plugin from one site and activate it on another one?&quot; The answer, &quot;Hi David, yes you can. With a lifetime license, you can deactivate on one site, reuse it on another. Just log into your Meow Apps account, licenses, manage sites, deactivate site, then activate it on the new site.</p>
+<p>Easy peasy.&quot; So that&#x27;s good to know the official word on that there. This is the site that I&#x27;m going to be using for the video. It&#x27;s a developer copy of a live site. We can use this for testing. I&#x27;m going to go to the plugins page.</p>
+<p>This is a Bricks site. When I brought it down to local host, I disabled the security plugins and the cache because those aren&#x27;t needed here. And I disabled the cache because if you&#x27;re optimizing the database and you&#x27;re looking at reports of what needs to be done and your cache is on, you might not be seeing the most up-to-date information. So I turned that off.  I did use the pro version on the WebTNG website yesterday and I just reactivated the cache when I was done.</p>
+<p>All right, let&#x27;s go and add the free plugin. So database cleaner. Here it is. I&#x27;ve used this one for a long time. You can see it has more active installs.</p>
+<p>It&#x27;s also very well liked, but the Meow Apps version, I think, has more features in the free plugin than this one does. So that&#x27;s a plus. Anyway, let&#x27;s go ahead and install and activate this. Okay, and then you get a menu item here for database cleaner. So let&#x27;s see what we have here on this page.</p>
+<p>It tells us we&#x27;re running the free version. There&#x27;s a link to tutorials. There&#x27;s a notice here that recommends you read the tutorials, recommends turning on auto refresh counts in the settings to automatically display the main items to clean in WordPress core, and there&#x27;s also a note here to make sure you back up the database before starting. On my sites, I do actually use Blog Vault. So I have a daily backup.</p>
+<p>Before I do anything, I use WPVivid to do a manual backup. And then, as I said, this is actually a testing site. So we&#x27;re not in any danger of playing around causing a problem. Now here there&#x27;s a button for auto clean. This is a toggle to go from easy mode to expert mode, and this is the size of the database.</p>
+<p>Okay, so we see there are a few tabs here. There&#x27;s WordPress core, which has our posts, post metadata, users, comments, transients. We&#x27;ll come back and look at that. There are database tables. There are settings and logs.</p>
+<p>We&#x27;ll come back and look at that just a second. And then there&#x27;s a license, which if you&#x27;re using the premium version, you need to enter your license here. All right, so here on the settings page, on the tables tab it&#x27;ll tell here, for example, what plugin or if it&#x27;s WordPress core, but if it&#x27;s unknown, it will allow you to assign the table to a plugin. And if you do that, you can share that information with the developer here, and then the developer might add that into the plugin for other users. So that&#x27;s what that&#x27;s for.</p>
+<p>These are the logs. It just has a list of the operations it&#x27;s done. This is the age threshold. Now, remember the pro version has automated optimizations. We&#x27;ll see if some of the places where it does that.</p>
+<p>This is the thing, the feature it recommended turning on, which is to auto refresh the counts for WordPress core. There are protected items. If the plugin recognizes that it&#x27;s a core, for example, table, then it will kind of gray out or it&#x27;s light blue. So that you don&#x27;t accidentally delete it. And if it recognizes the plugin and you have that plugin activated, it&#x27;ll do the same, it&#x27;ll gray it out.</p>
+<p>But if you want to override that, then you can check this. This is the pro feature to turn on the automation. Here you can hide a message for making sure you have backups and things. This is a little kind of testing development panel here. So you can generate some fake data.</p>
+<p>You can run some tasks here yourself. So that&#x27;s more of a developer thing. And then this is when it&#x27;s doing operations, the number to include in each batch, like the number of records or whatever. And this is the delay in between batch runs. And then this is an interesting feature.</p>
+<p>It&#x27;s a pro only feature, but instead of using SQL queries, it will use the WordPress functions when you&#x27;re cleaning or deleting something. So that&#x27;s kind of interesting. All right. But let&#x27;s go and toggle from easy mode to expert mode. And woohoo, we get some new things here.</p>
+<p>In the settings, you can disable modules you don&#x27;t want to use. Okay. But now we have core, post types, tables, options, metadata, cron jobs, custom queries, settings and logs and license. Okay. So we got more features showing up in this expert mode.</p>
+<p>So this is the &quot;WordPress core&quot; part. So if you have revisions in here, you can delete those. This will do a refresh. It&#x27;ll check these items. You note that it has auto, manual, and never.</p>
+<p>And auto would be picked up by that auto job to be done. Manual is you do it yourself and never is you&#x27;ve marked it to protect. You don&#x27;t want it to be deleted or cleaned. Okay. And it&#x27;s automatically made to auto the ones that it knows are safe here.</p>
+<p>We can just do a refresh here. See if there&#x27;s anything to clean. Okay. It says there&#x27;s 72 revisions. So we can remove those.</p>
+<p>Same thing here. You can do them one by one or do the group of items. Okay. And so here you have a little information icon about each item. And this one, it says that if there are duplicates, it will remove the duplicate.</p>
+<p>But it actually checks when you go to actually do the cleaning. It will check the value to make sure that really is a duplicate and not the same key with different values. That&#x27;s interesting there. Another thing you&#x27;ll see when there&#x27;s data here, it will show a magnifying glass and you can go and examine it. Here it&#x27;s telling us what&#x27;s duplicated.</p>
+<p>So I think it&#x27;s safe to go ahead with the deletion. And it&#x27;s pretty smart if it thought that it wasn&#x27;t really a duplicate, it wouldn&#x27;t delete it. Okay. So we can do the same things here to check, see if there&#x27;s anything that needs to be cleaned. Or we can delete this OEMBED cache.</p>
+<p>But rather than go through everything kind of manually, I want to take the time for the video to go through the different panels so you see what is here. So these are the post types. You see ACF field, ACF field group. Now some years ago plugin developers got clever and they realized they could store their data in custom post types. And if over the years, you know, you change builders or you change plugins, you could very easily end up with some orphan custom post types.</p>
+<p>So this is a nice way to go and check those things. I am actually using ACF here so I&#x27;m okay having those. These might also be related here to Advanced Themer. So I&#x27;m going to keep these things on sale. That&#x27;s a custom post type I created.</p>
+<p>And this SURL, simple URL, that&#x27;s this one here. And you noticed here some WordPress ones that, like I mentioned, are kind of grayed out or light blue and you can&#x27;t do them manually. Okay. So we can page here and WP Code Box snippet. I do have that installed also.</p>
+<p>So nothing here to clean, but this is a nice thing to check. If we go to tables, an interesting thing here. We have the same kind of thing with the others where you can delete. It shows the size, the relative amount of data that the table is taking overall and the option to actually look at the data. This is very useful when you&#x27;re not sure.</p>
+<p>Okay, but on this tables tab there is this toggle here which allows you to optimize database tables or repair them. So that&#x27;s a nice feature. Let&#x27;s go back here. Let&#x27;s see. WPLHR log.</p>
+<p>I wonder what that is. Sometimes by looking at the data here you can see and get an idea of what this table was used for. Ah, see it says Cwicly. Huh. And I started this website using Cwicly.</p>
+<p>I&#x27;m not using that anymore. So I&#x27;m going to decide that this one is okay to go ahead and remove. Blog Vault. WP Analytics. I switched over to using Independent Analytics which I like a lot.</p>
+<p>So this is left over from when I was trying out WP Analytics and then I&#x27;m using Slim SEO. Alright, so rather than spend the time to go through nine pages of this you get the idea of the steps you take when you&#x27;re doing your cleaning. This tab is for the WordPress options table and you can page them through the WordPress options and you can delete ones that are for plugins. They&#x27;re no longer relevant or used. You can adjust how many show per page here.</p>
+<p>If you want to see 25 or 50 instead of 10. But a lot of these are for plugins that I have installed and in general the wisdom is if you&#x27;re not sure then don&#x27;t delete it. Oh, another thing to see here in the options is the options table has an auto load option which means that it&#x27;s the values here are loaded for every page. So that can eat up some memory. So that&#x27;s another reason to check this and delete things that aren&#x27;t being used.</p>
+<p>Like this Cwicly global styles for instance. It&#x27;s getting loaded on every page load. It&#x27;s only 9k but still. So we can delete that one. And if you go and you look at the data sometimes you can see.</p>
+<p>See this is Cwicly. Oh we would delete that. All right Cwicly local fonts. Cwicly global CSS. All right so you get the idea here.</p>
+<p>You know I&#x27;m not going to go through all the pages here in the video but you would want to do a deep clean once and then periodically come in and check. Let&#x27;s go on to the next tab which is for metadata. This is the post meta table. It&#x27;s another one of those where you can end up with a lot of orphan data. So it&#x27;s good to check it every once in a while.</p>
+<p>You can see here&#x27;s 2318 records. So I&#x27;m not going to go through all these but let&#x27;s look at a few here see if we find some that are obviously not needed anymore. The attachment that would be for images I&#x27;m guessing. We have WP code box. We have bricks.</p>
+<p>Let&#x27;s zoom to the end. Footnotes. That&#x27;s interesting. They&#x27;re 0k. So I&#x27;m thinking that these probably aren&#x27;t really needed.</p>
+<p>So beginning with WordPress 6.3 it had a footnotes feature. It adds a record in post meta even if it&#x27;s empty. If it&#x27;s empty it&#x27;s safe to delete. So we could delete these. Now you look here and you go gee there&#x27;s probably a ton of these records and it&#x27;s going to take a long time to go through page by page to delete these.</p>
+<p>So there is this option here for custom queries. We&#x27;ll come and look at that in a minute. But keep this in mind when we get there. All right one other feature on this page is you can switch from post meta to user meta. So if you have a site that has a lot of users then you can check the user meta also.</p>
+<p>Let&#x27;s go to cron jobs and let&#x27;s see. Cron jobs are something that I&#x27;ve seen a lot of plugins leave an active cron job and that&#x27;s running in the background slowing your site down. I was experimenting with right place and removed that a while ago. So here&#x27;s one that I can remove. Let&#x27;s see if there are any others here.</p>
+<p>This is for Independent Analytics. So I think we&#x27;re good for cron jobs. Now this custom queries one. This is kind of interesting. Let&#x27;s add a custom query and edit it.</p>
+<p>Let&#x27;s see remove empty post meta footnotes. So we have auto manual never. We&#x27;ll do it manual now. So let&#x27;s do select star from post meta and I guess that would actually be wp post meta where and meta value equals or meta value is null. Let&#x27;s see what that does.</p>
+<p>Whoops meta value. All right 5002 records. So now we&#x27;re going to take the same here and we&#x27;re just going to go delete. You can do this in phpmyadmin also and then run delete. Okay and so then you have your custom query.</p>
+<p>I&#x27;m curious now if we go back to metadata and we refresh this. Go to the end and we no longer have all those footnotes. This is something you could automate. There was that option in there to clean. Set up an auto job if you&#x27;re using the pro version and using the automation feature.</p>
+<p>So we&#x27;ve done a look at the wordpress page for the free plugin. We&#x27;ve looked at the website for the database cleaner. Let&#x27;s have a little discussion and some conclusions. I like this plugin. It has a lot of features more features in a free version than I&#x27;ve seen in the free version of other database cleaners.</p>
+<p>It actually has more features than I&#x27;ve seen before even in some premium plugins. In fact I almost wonder if the developer included too many features in the free version. There are a few things that could perhaps be made a little easier. For example the metadata there are so many records that it&#x27;s really impractical to page through a thousand, two thousand records. So some way of filtering there perhaps grouping by unique key.</p>
+<p>So like I did in the custom query group all of the footnote records there. But overall I think this is a real find. The free version is very full featured. People have a busy site maybe a WooCommerce store membership site site where maybe you&#x27;re importing or exporting data and you want to do some automatic cleanup then you might benefit from the pro version. So I hope you found this video interesting and useful.</p>
+<p>If you did please give it a like and subscribe to the channel.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p><a href="../index.html">&larr; Back to index</a></p>
+    </footer>
+</body>
+</html>
